@@ -1,0 +1,66 @@
+{
+  "name": "@tikui/core",
+  "version": "1.0.0",
+  "description": "Tikui core",
+  "main": "src/tikui.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --collectCoverage --detectOpenHandles"
+  },
+  "keywords": [
+    "ui",
+    "ui kit",
+    "design system",
+    "pattern library"
+  ],
+  "repository": "github:tikui/tikui-core",
+  "author": "Anthony Rey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tikui/tikui-core/issues"
+  },
+  "homepage": "https://github.com/tikui/tikui-core#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "dependencies": {
+    "commander": "^4.1.0",
+    "concurrently": "^5.0.2",
+    "cors": "^2.8.5",
+    "escape-html": "^1.0.3",
+    "express": "^4.17.1",
+    "html2pug": "^4.0.0",
+    "node-watch": "^0.6.3",
+    "prismjs": "^1.19.0",
+    "pug": "^2.0.4",
+    "pug-cli": "^1.0.0-alpha6",
+    "pug-multiple-basedirs-plugin": "^0.1.5",
+    "recursive-copy": "^2.0.10",
+    "reload": "^3.0.4",
+    "rimraf": "^3.0.0",
+    "sass": "^1.24.4",
+    "showdown": "^1.9.1"
+  },
+  "devDependencies": {
+    "@types/concurrently": "^4.1.0",
+    "@types/cors": "^2.8.6",
+    "@types/escape-html": "0.0.20",
+    "@types/express": "^4.17.2",
+    "@types/jest": "^24.9.0",
+    "@types/node": "^13.1.7",
+    "@types/pug": "^2.0.4",
+    "@types/rimraf": "^2.0.3",
+    "@types/sass": "^1.16.0",
+    "@types/showdown": "^1.9.3",
+    "jest": "^24.9.0",
+    "tikuidoc-tikui": "^1.0.0",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.4"
+  },
+  "bin": {
+    "tikui-core": "./dist/tikui-core.js"
+  }
+}
