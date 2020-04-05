@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -26,39 +26,39 @@
     }
   },
   "dependencies": {
-    "commander": "^4.1.0",
-    "concurrently": "^5.0.2",
+    "commander": "^5.0.0",
+    "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "escape-html": "^1.0.3",
     "express": "^4.17.1",
     "html2pug": "^4.0.0",
     "node-watch": "^0.6.3",
-    "prismjs": "^1.19.0",
+    "prismjs": "^1.20.0",
     "pug": "^2.0.4",
     "pug-cli": "^1.0.0-alpha6",
     "pug-multiple-basedirs-plugin": "^0.1.5",
     "recursive-copy": "^2.0.10",
     "reload": "^3.0.4",
-    "rimraf": "^3.0.0",
-    "sass": "^1.24.4",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.3",
     "showdown": "^1.9.1"
   },
   "devDependencies": {
-    "@types/concurrently": "^4.1.0",
+    "@types/concurrently": "^5.1.0",
     "@types/cors": "^2.8.6",
     "@types/escape-html": "0.0.20",
-    "@types/express": "^4.17.2",
-    "@types/jest": "^24.9.0",
-    "@types/node": "^13.1.7",
+    "@types/express": "^4.17.4",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.11.0",
     "@types/pug": "^2.0.4",
-    "@types/rimraf": "^2.0.3",
+    "@types/rimraf": "^3.0.0",
     "@types/sass": "^1.16.0",
     "@types/showdown": "^1.9.3",
-    "jest": "^24.9.0",
-    "tikuidoc-tikui": "^1.0.0",
-    "ts-jest": "^24.3.0",
-    "ts-node": "^8.6.2",
-    "typescript": "^3.7.4"
+    "jest": "^25.2.7",
+    "tikuidoc-tikui": "^1.0.2",
+    "ts-jest": "^25.3.1",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
   },
   "bin": {
     "tikui-core": "./dist/tikui-core.js"
