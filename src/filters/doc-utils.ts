@@ -2,8 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as pug from 'pug';
 import * as showdown from 'showdown';
-import * as escapeHtml from 'escape-html';
-
+import escapeHtml = require('escape-html');
 import { DocUtils, Render, Code } from './Documentation';
 import { project } from '../tikui-loader';
 
