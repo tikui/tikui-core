@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   moduleFileExtensions: [
     'js',
@@ -15,4 +17,5 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{js,ts}', '!src/tikui-core.ts'],
   coverageReporters: ['html', 'json-summary', 'text-summary', 'lcov', 'clover'],
+  setupFiles: ['<rootDir>/test-environment.js'],
 };

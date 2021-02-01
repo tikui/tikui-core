@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { project } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
+import { onExposedResources } from './exposed-resources';
 
 const srcDir: string = path.resolve(project, 'src');
 const distDir: string = path.resolve(project, 'dist');
@@ -64,4 +65,6 @@ onDocResources((from, to, type) => {
       break;
   }
 });
+
+onExposedResources((from, to) => manageCopy(from, path.resolve(distDir, to), libOptions));
 
