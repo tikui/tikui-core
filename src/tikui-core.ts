@@ -29,7 +29,11 @@ const build = () => {
   concurrently([
     SASS_BUILD,
     ordered(ASSETS_BUILD, PUG_BUILD),
-  ]).then();
+  ]).then().catch((executions): void => {
+    const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
+    console.error('Build failed, first error code found:', firstCode);
+    return process.exit(firstCode);
+  });
 };
 
 commander

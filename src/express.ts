@@ -10,6 +10,7 @@ import * as options from './options.dev';
 import { onLibResources } from './lib-resources';
 import { project } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
+import { onExposedResources } from './exposed-resources';
 
 const app = express();
 
@@ -87,6 +88,11 @@ onDocResources((absoluteFrom, relativeTo, type) => {
       break;
   }
 });
+
+onExposedResources((absoluteFrom, relativeTo) => app.use(
+  `/${relativeTo}`,
+  express.static(absoluteFrom),
+));
 
 // Create server
 app.listen(3000, () => console.log('Styles are available at http://localhost:3000/'));
