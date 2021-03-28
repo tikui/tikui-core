@@ -10,8 +10,8 @@ const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
 const SASS_CACHE = 'npx sass src:cache -s expanded --watch';
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
 const SASS_BUILD = 'npx sass src:dist -s compressed --source-map --embed-sources';
-const PUG_BUILD = `npx pug-cli src -O "${path.resolve(BUILD_DIR, 'options.js')}" -b ./src -o dist`;
 const ASSETS_BUILD = `node "${path.resolve(BUILD_DIR, 'assets-build.js')}"`;
+const PUG_BUILD = `node "${path.resolve(BUILD_DIR, 'pug-build.js')}"`;
 
 const serve = () => {
   console.log('Serving, please use Ctrl-C to exit.');
