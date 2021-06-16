@@ -17,6 +17,7 @@ jobs:
       - name: node check
         run: |
           npm ci
+          npm audit --production
           npm run build
           npm test
         env:
