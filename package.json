@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -37,9 +37,9 @@
     "pug": "^3.0.2",
     "pug-multiple-basedirs-plugin": "^0.1.5",
     "recursive-copy": "^2.0.11",
-    "reload": "^3.1.1",
+    "reload": "^3.2.0",
     "rimraf": "^3.0.2",
-    "sass": "^1.34.0",
+    "sass": "^1.35.1",
     "showdown": "^1.9.1",
     "through2": "^4.0.2"
   },
@@ -49,15 +49,15 @@
     "@types/escape-html": "^1.0.1",
     "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
-    "@types/node": "^14.17.1",
+    "@types/node": "^14.17.3",
     "@types/pug": "^2.0.4",
     "@types/rimraf": "^3.0.0",
     "@types/sass": "^1.16.0",
     "@types/showdown": "^1.9.3",
     "@types/through2": "^2.0.36",
-    "jest": "^27.0.1",
+    "jest": "^27.0.4",
     "tikuidoc-tikui": "^1.1.0",
-    "ts-jest": "^27.0.1",
+    "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   },
