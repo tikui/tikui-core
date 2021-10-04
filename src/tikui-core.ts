@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import * as commander from 'commander';
 import * as concurrently from 'concurrently';
 import * as path from 'path';
 import * as rimraf from 'rimraf';
+import { Command } from 'commander';
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
 
@@ -36,14 +36,16 @@ const build = () => {
   });
 };
 
-commander
+const program = new Command();
+
+program
   .command('serve')
   .action(serve);
 
-commander
+program
   .command('build')
   .action(build);
 
-commander
+program
   .name('tikui')
   .parse(process.argv);
