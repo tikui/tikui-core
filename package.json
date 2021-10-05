@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
+    "@fontsource/montserrat": "^4.5.1",
     "commander": "^8.2.0",
     "concurrently": "^6.3.0",
     "cors": "^2.8.5",
