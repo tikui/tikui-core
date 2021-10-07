@@ -12,10 +12,7 @@ const NODE_MODULES_PATH = resolve(__dirname, '..', 'node_modules');
 const expectExistingFile = (dist: string) => (path: string) => expect(existsSync(resolve(dist, path))).toBeTruthy();
 const stringContaining = (dist: string) => (path: string) => fs.readFileSync(resolve(dist, path)).toString();
 
-const createTikui = async (modules: string): Promise<void> => {
-  await copy(resolve(NODE_MODULES_PATH, 'tikuidoc-tikui'), resolve(modules, 'tikuidoc-tikui'));
-  await copy(resolve(NODE_MODULES_PATH, 'bootstrap'), resolve(modules, 'bootstrap'));
-}
+const createTikui = async (modules: string): Promise<void> => await copy(resolve(NODE_MODULES_PATH, 'tikuidoc-tikui'), resolve(modules, 'tikuidoc-tikui'))
 
 interface TikuiPathList {
   path: string;

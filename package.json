@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -40,19 +40,19 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "@types/concurrently": "^6.2.1",
+    "@types/concurrently": "^6.3.0",
     "@types/cors": "^2.8.12",
     "@types/escape-html": "^1.0.1",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",
-    "@types/node": "^14.17.20",
+    "@types/node": "^14.17.21",
     "@types/pug": "^2.0.5",
     "@types/rimraf": "^3.0.2",
     "@types/sass": "^1.16.1",
     "@types/showdown": "^1.9.4",
     "@types/through2": "^2.0.36",
     "jest": "^27.2.4",
-    "tikuidoc-tikui": "^2.0.0",
+    "tikuidoc-tikui": "^3.0.0",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
