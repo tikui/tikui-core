@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 import { config, project } from './tikui-loader';
 
 type ExposedResources = Record<string, string>;

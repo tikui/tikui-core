@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 import { componentDoc } from './filters/component-doc';
 import { templateDoc } from './filters/template-doc';

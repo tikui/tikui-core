@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 export const project = process.env.TIKUI_PATH || process.cwd();
 

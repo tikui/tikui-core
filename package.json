@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -22,8 +22,8 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@fontsource/montserrat": "^4.5.1",
-    "commander": "^8.2.0",
-    "concurrently": "^6.3.0",
+    "commander": "^9.3.0",
+    "concurrently": "^7.2.2",
     "cors": "^2.8.5",
     "escape-html": "^1.0.3",
     "express": "^4.17.1",
@@ -36,26 +36,26 @@
     "reload": "^3.2.0",
     "rimraf": "^3.0.2",
     "sass": "^1.42.1",
-    "showdown": "^1.9.1",
+    "showdown": "^2.1.0",
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "@types/concurrently": "^6.3.0",
+    "@types/concurrently": "^7.0.0",
     "@types/cors": "^2.8.12",
     "@types/escape-html": "^1.0.1",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^14.17.21",
+    "@types/jest": "^28.1.2",
+    "@types/node": "^16.11.41",
     "@types/pug": "^2.0.5",
     "@types/rimraf": "^3.0.2",
     "@types/sass": "^1.16.1",
-    "@types/showdown": "^1.9.4",
+    "@types/showdown": "^2.0.0",
     "@types/through2": "^2.0.36",
-    "jest": "^27.2.4",
+    "jest": "^28.1.1",
     "tikuidoc-tikui": "^3.0.0",
-    "ts-jest": "^27.0.5",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.4.3"
+    "typescript": "^4.7.4"
   },
   "bin": {
     "tikui-core": "./dist/tikui-core.js"

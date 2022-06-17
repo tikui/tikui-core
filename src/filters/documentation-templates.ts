@@ -1,5 +1,5 @@
-import * as pug from 'pug';
-import * as path from 'path';
+import pug from 'pug';
+import path from 'path';
 import { pluginPath } from '../documentation-loader';
 
 interface ComponentVariables {

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import * as concurrently from 'concurrently';
-import * as path from 'path';
-import * as rimraf from 'rimraf';
+import concurrently from 'concurrently';
+import path from 'path';
+import rimraf from 'rimraf';
 import { Command } from 'commander';
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
@@ -15,10 +15,11 @@ const PUG_BUILD = `node "${path.resolve(BUILD_DIR, 'pug-build.js')}"`;
 
 const serve = () => {
   console.log('Serving, please use Ctrl-C to exit.');
-  concurrently([
+  const { result } = concurrently([
     SASS_CACHE,
     EXPRESS_SERVE,
-  ]).then();
+  ])
+  result.then();
 };
 
 const ordered = (...commands: string[]) => commands.join(' && ');
@@ -26,10 +27,11 @@ const ordered = (...commands: string[]) => commands.join(' && ');
 const build = () => {
   console.log('Building on dist directory.');
   rimraf.sync('dist');
-  concurrently([
+  const { result } = concurrently([
     SASS_BUILD,
     ordered(ASSETS_BUILD, PUG_BUILD),
-  ]).then().catch((executions): void => {
+  ]);
+  result.then().catch((executions): void => {
     const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
     console.error('Build failed, first error code found:', firstCode);
     return process.exit(firstCode);

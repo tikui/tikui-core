@@ -1,7 +1,7 @@
-import * as path from 'path';
+import path from 'path';
 import { pluginPath } from './documentation-loader';
-import * as fs from 'fs';
-import * as sass from 'sass';
+import fs from 'fs';
+import sass from 'sass';
 import { project } from './tikui-loader';
 
 type ResourceType = 'copy' | 'scss';

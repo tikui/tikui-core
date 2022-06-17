@@ -1,14 +1,12 @@
-import * as path from 'path';
-import * as pug from 'pug';
+import path from 'path';
+import pug from 'pug';
 import { project } from './tikui-loader';
-import * as through2 from 'through2';
+import through2 from 'through2';
 import options = require('./options');
+import copy from 'recursive-copy';
 
 const srcDir: string = path.resolve(project, 'src');
 const distDir: string = path.resolve(project, 'dist');
-
-const copy = require('recursive-copy');
-
 
 const pugCopy: any = {
   overwrite: true,
@@ -25,7 +23,7 @@ const pugCopy: any = {
 };
 
 
-const managePugCopy = (...copyargs: any[]) => copy(...copyargs)
+const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
   .on(
     copy.events.COPY_FILE_COMPLETE,
     (copyOperation: any) => console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`),

@@ -6,7 +6,8 @@
     "preserveConstEnums": true,
     "outDir": "dist",
     "sourceMap": true,
-    "target": "esnext"
+    "target": "esnext",
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*"
