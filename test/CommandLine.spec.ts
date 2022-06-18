@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { resolve } from 'path';
 import { existsSync } from 'fs';
-import * as fs from 'fs';
+import fs from 'fs';
 const rimraf = require("rimraf");
 const copy = require('recursive-copy');
 
@@ -12,7 +12,7 @@ const NODE_MODULES_PATH = resolve(__dirname, '..', 'node_modules');
 const expectExistingFile = (dist: string) => (path: string) => expect(existsSync(resolve(dist, path))).toBeTruthy();
 const stringContaining = (dist: string) => (path: string) => fs.readFileSync(resolve(dist, path)).toString();
 
-const createTikui = async (modules: string): Promise<void> => await copy(resolve(NODE_MODULES_PATH, 'tikuidoc-tikui'), resolve(modules, 'tikuidoc-tikui'))
+const createTikui = async (modules: string): Promise<void> => { await copy(resolve(NODE_MODULES_PATH, 'tikuidoc-tikui'), resolve(modules, 'tikuidoc-tikui')) };
 
 interface TikuiPathList {
   path: string;

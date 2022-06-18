@@ -1,10 +1,10 @@
-import * as express from 'express';
+import express from 'express';
 
 const reload = require('reload');
 import watch from 'node-watch';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as cors from 'cors';
+import path from 'path';
+import fs from 'fs';
+import cors from 'cors';
 import { Request, Response, NextFunction } from 'express';
 import * as options from './options.dev';
 import { onLibResources } from './lib-resources';

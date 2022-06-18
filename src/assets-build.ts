@@ -1,8 +1,8 @@
 import { onLibResources } from './lib-resources';
 
 const copy = require('recursive-copy');
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 import { project } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
