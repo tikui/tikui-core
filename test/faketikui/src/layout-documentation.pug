@@ -1,0 +1,10 @@
+extends /documentation/layout-atomic
+
+include /documentation/mixin
+
+block header
+  block vars
+    -let active='';
+    -const isActive = current => current === active;
+  +tikui-navbar('[[TIKUI_BASEPATH]]', 'Tikui')
+    +tikui-navbar-item('[[TIKUI_BASEPATH]]sub-dir/index.html', 'Sub dir', isActive('sub-dir'))

@@ -10,7 +10,7 @@ Tikui core is the heart of Tikui. Combined to a documentation and some configura
 
 ### Classic way
 
-You can use it by cloning or downloading [Tikui](https://www.github.com/tikui/tikui).
+You can use it by using [Tikui CLI](https://www.github.com/tikui/tikui-cli).
 
 ### As a dependency
 
