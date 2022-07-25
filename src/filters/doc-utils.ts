@@ -34,7 +34,7 @@ const getRender = (filename: string) => (template: Render): string => {
     return 'Please provide a render file: ' + renderFilename;
   }
 
-  const htmlFilenameLink = relativeRenderFilename.replace(/^(.+).pug$/, '/$1.html');
+  const htmlFilenameLink = relativeRenderFilename.replace(/^(.+).pug$/, '[[TIKUI_BASEPATH]]$1.html');
 
   return template(htmlFilenameLink);
 };

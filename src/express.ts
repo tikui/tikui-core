@@ -1,16 +1,16 @@
-import express from 'express';
-
-const reload = require('reload');
+import express, { NextFunction, Request, Response } from 'express';
 import watch from 'node-watch';
 import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
-import { Request, Response, NextFunction } from 'express';
-import * as options from './options.dev';
 import { onLibResources } from './lib-resources';
+import * as options from './options.dev';
 import { project } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
+import { renderPugFile } from './pug-util';
+
+const reload = require('reload');
 
 const app = express();
 
@@ -27,11 +27,14 @@ if (!fs.existsSync(cacheDir)) {
   fs.mkdirSync(cacheDir);
 }
 
+const toHtml = renderPugFile(options);
+
 // Compiled resources
 const renderPage = (res: Response, next: NextFunction) => (filename: string) => {
   const pugUri = filename + '.pug';
-  if(fs.existsSync(path.resolve(srcDir, pugUri))) {
-    return res.render(pugUri, options);
+  const filepath = path.resolve(srcDir, pugUri);
+  if(fs.existsSync(filepath)) {
+    return res.send(toHtml(filepath));
   }
   return next();
 };
