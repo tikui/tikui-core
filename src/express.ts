@@ -5,7 +5,7 @@ import fs from 'fs';
 import cors from 'cors';
 import { onLibResources } from './lib-resources';
 import * as options from './options.dev';
-import { project } from './tikui-loader';
+import { project, projectSrc } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 import { renderPugFile } from './pug-util';
@@ -14,13 +14,12 @@ const reload = require('reload');
 
 const app = express();
 
-const srcDir: string = path.resolve(project, 'src');
 const cacheDir: string = path.resolve(project, 'cache');
 
 app.use(cors());
 
 // Set views to sources files
-app.set('views', srcDir);
+app.set('views', projectSrc);
 
 // Create path
 if (!fs.existsSync(cacheDir)) {
@@ -32,7 +31,7 @@ const toHtml = renderPugFile(options);
 // Compiled resources
 const renderPage = (res: Response, next: NextFunction) => (filename: string) => {
   const pugUri = filename + '.pug';
-  const filepath = path.resolve(srcDir, pugUri);
+  const filepath = path.resolve(projectSrc, pugUri);
   if(fs.existsSync(filepath)) {
     return res.send(toHtml(filepath));
   }
@@ -64,7 +63,7 @@ app.use(/^\/(.+).css$/, (req: Request, res: Response, next: NextFunction) => {
 });
 
 // Public resources
-app.use('/', express.static(srcDir));
+app.use('/', express.static(projectSrc));
 
 onLibResources((absoluteFrom, relativeTo) => app.use(
   `/${relativeTo}`,
@@ -103,7 +102,7 @@ app.listen(3000, () => console.log('Styles are available at http://localhost:300
 // Watch on pug and css files
 reload(app).then((reloadReturned: any) => {
   watch([
-    srcDir,
+    projectSrc,
     cacheDir
   ], {
     recursive: true

@@ -1,0 +1,5 @@
+{
+  "documentation": "tikui",
+  "src": "other/place/sources",
+  "dist": "other/place/target"
+}

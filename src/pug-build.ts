@@ -1,12 +1,8 @@
-import path from 'path';
-import { project } from './tikui-loader';
+import { projectDist, projectSrc } from './tikui-loader';
 import through2 from 'through2';
 import copy from 'recursive-copy';
 import options = require('./options');
 import { renderPugFile } from './pug-util';
-
-const srcDir: string = path.resolve(project, 'src');
-const distDir: string = path.resolve(project, 'dist');
 
 const toHtml = renderPugFile(options);
 
@@ -37,4 +33,4 @@ const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
   .catch((err: any) => console.error('Error during copy', err))
 ;
 
-managePugCopy(srcDir, distDir, pugCopy);
+managePugCopy(projectSrc, projectDist, pugCopy);
