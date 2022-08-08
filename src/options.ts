@@ -4,12 +4,12 @@ import { componentDoc } from './filters/component-doc';
 import { templateDoc } from './filters/template-doc';
 import { reload } from './filters/reload';
 import { pluginPath } from './documentation-loader';
-import { project } from './tikui-loader';
+import { projectSrc } from './tikui-loader';
 
 const MultipleBasedirsPlugin = require("pug-multiple-basedirs-plugin");
 
 const options = {
-    basedir: path.resolve(project, 'src'),
+    basedir: projectSrc,
     plugins: [
       MultipleBasedirsPlugin({
         paths: [
@@ -17,7 +17,7 @@ const options = {
             pluginPath(),
             'src',
           ),
-          path.resolve(project, 'src'),
+          projectSrc,
         ],
       }),
     ],

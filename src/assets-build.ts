@@ -3,12 +3,9 @@ import { onLibResources } from './lib-resources';
 const copy = require('recursive-copy');
 import path from 'path';
 import fs from 'fs';
-import { project } from './tikui-loader';
+import { projectDist, projectSrc } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
-
-const srcDir: string = path.resolve(project, 'src');
-const distDir: string = path.resolve(project, 'dist');
 
 const options: any = {
   overwrite: true,
@@ -26,8 +23,8 @@ const libOptions: any = {
   overwrite: true,
 };
 
-if (!fs.existsSync(distDir)) {
-  fs.mkdirSync(distDir);
+if (!fs.existsSync(projectDist)) {
+  fs.mkdirSync(projectDist);
 }
 
 const manageCopy = (...copyargs: any[]) => copy(...copyargs)
@@ -50,12 +47,12 @@ const manageSassCopy = (from: string, to: string) => {
   console.info(`${from} => ${to} using SCSS`);
 };
 
-manageCopy(srcDir, distDir, options);
+manageCopy(projectSrc, projectDist, options);
 
-onLibResources((from, to) => manageCopy(from, path.resolve(distDir, to), libOptions));
+onLibResources((from, to) => manageCopy(from, path.resolve(projectDist, to), libOptions));
 
 onDocResources((from, to, type) => {
-  const dest = path.resolve(distDir, to);
+  const dest = path.resolve(projectDist, to);
   switch (type) {
     case 'copy':
       manageCopy(from, dest, libOptions);
@@ -66,5 +63,5 @@ onDocResources((from, to, type) => {
   }
 });
 
-onExposedResources((from, to) => manageCopy(from, path.resolve(distDir, to), libOptions));
+onExposedResources((from, to) => manageCopy(from, path.resolve(projectDist, to), libOptions));
 

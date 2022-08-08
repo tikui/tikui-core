@@ -1,9 +1,7 @@
 import path from 'path';
 import { config, project } from './tikui-loader';
 
-type ExposedResources = Record<string, string>;
-
-const exposedResources: ExposedResources = config.expose || {};
+const exposedResources = config.expose || {};
 
 const resolveProjectPath = (name: string): string => path.resolve(project, name);
 

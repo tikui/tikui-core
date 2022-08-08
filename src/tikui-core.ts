@@ -4,12 +4,14 @@ import concurrently from 'concurrently';
 import path from 'path';
 import rimraf from 'rimraf';
 import { Command } from 'commander';
+import { projectDist, projectSrc } from './tikui-loader';
+import fs from 'fs';
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
 
-const SASS_CACHE = 'npx sass src:cache -s expanded --watch';
+const SASS_CACHE = `npx sass "${projectSrc}":cache -s expanded --watch`;
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
-const SASS_BUILD = 'npx sass src:dist -s compressed --source-map --embed-sources';
+const SASS_BUILD = `npx sass "${projectSrc}":"${projectDist}" -s compressed --source-map --embed-sources`;
 const ASSETS_BUILD = `node "${path.resolve(BUILD_DIR, 'assets-build.js')}"`;
 const PUG_BUILD = `node "${path.resolve(BUILD_DIR, 'pug-build.js')}"`;
 
@@ -25,8 +27,11 @@ const serve = () => {
 const ordered = (...commands: string[]) => commands.join(' && ');
 
 const build = () => {
-  console.log('Building on dist directory.');
-  rimraf.sync('dist');
+  console.log(`Building on ${projectDist} directory.`);
+  rimraf.sync(projectDist);
+  fs.mkdirSync(projectDist, {
+    recursive: true,
+  });
   const { result } = concurrently([
     SASS_BUILD,
     ordered(ASSETS_BUILD, PUG_BUILD),

@@ -4,11 +4,9 @@ import pug from 'pug';
 import showdown from 'showdown';
 import escapeHtml = require('escape-html');
 import { DocUtils, Render, Code } from './Documentation';
-import { project } from '../tikui-loader';
+import { project, projectSrc } from '../tikui-loader';
 
 const html2pug = require('html2pug');
-
-const srcDir: string = path.resolve(project, 'src');
 
 const getCode = (filename: string) => (code: Code): string => {
   const codeFile = filename.replace(/.md$/, '.code.pug');
@@ -17,7 +15,7 @@ const getCode = (filename: string) => (code: Code): string => {
     return 'Please provide a code file: ' + codeFile;
   }
 
-  const rendered = pug.renderFile(codeFile, {pretty: true, basedir: srcDir});
+  const rendered = pug.renderFile(codeFile, {pretty: true, basedir: projectSrc});
   const escaped = escapeHtml(rendered).trim();
   const renderedPug = html2pug(rendered, {fragment: true});
   const escapedPug = escapeHtml(renderedPug);
@@ -28,7 +26,7 @@ const getCode = (filename: string) => (code: Code): string => {
 const getRender = (filename: string) => (template: Render): string => {
   const absoluteFilename =  path.resolve(filename);
   const renderFilename = absoluteFilename.replace(/.md$/, '.render.pug');
-  const relativeRenderFilename = path.relative(srcDir, renderFilename);
+  const relativeRenderFilename = path.relative(projectSrc, renderFilename);
 
   if (!fs.existsSync(renderFilename)) {
     return 'Please provide a render file: ' + renderFilename;
