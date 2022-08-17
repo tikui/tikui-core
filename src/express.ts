@@ -5,7 +5,7 @@ import fs from 'fs';
 import cors from 'cors';
 import { onLibResources } from './lib-resources';
 import * as options from './options.dev';
-import { project, projectSrc } from './tikui-loader';
+import { port, project, projectSrc } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 import { renderPugFile } from './pug-util';
@@ -18,7 +18,7 @@ const cacheDir: string = path.resolve(project, 'cache');
 
 app.use(cors());
 
-// Set views to sources files
+// Set views to source files
 app.set('views', projectSrc);
 
 // Create path
@@ -97,7 +97,7 @@ onExposedResources((absoluteFrom, relativeTo) => app.use(
 ));
 
 // Create server
-app.listen(3000, () => console.log('Styles are available at http://localhost:3000/'));
+app.listen(port, () => console.log(`Styles are available at http://localhost:${port}/`));
 
 // Watch on pug and css files
 reload(app).then((reloadReturned: any) => {
