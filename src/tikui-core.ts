@@ -4,12 +4,12 @@ import concurrently from 'concurrently';
 import path from 'path';
 import rimraf from 'rimraf';
 import { Command } from 'commander';
-import { projectDist, projectSrc } from './tikui-loader';
+import { projectCache, projectDist, projectSrc } from './tikui-loader';
 import fs from 'fs';
 
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
 
-const SASS_CACHE = `npx sass "${projectSrc}":cache -s expanded --watch`;
+const SASS_CACHE = `npx sass "${projectSrc}":"${projectCache}" -s expanded --watch`;
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
 const SASS_BUILD = `npx sass "${projectSrc}":"${projectDist}" -s compressed --source-map --embed-sources`;
 const ASSETS_BUILD = `node "${path.resolve(BUILD_DIR, 'assets-build.js')}"`;
