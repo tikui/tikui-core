@@ -39,12 +39,11 @@ export const onDocResources = (launch: (absoluteFrom: string, relativeTo: string
     filename.type,
   ));
 
-export const sassRender = (file: string): Buffer => {
-  const rendered = sass.renderSync({
-    file: file,
-    includePaths: [
+export const sassRender = (file: string): string => {
+  const rendered = sass.compile(file,{
+    loadPaths: [
       path.resolve(project, 'node_modules')
-    ]
+    ],
   });
   return rendered.css;
 };

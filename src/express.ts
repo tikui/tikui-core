@@ -5,7 +5,7 @@ import fs from 'fs';
 import cors from 'cors';
 import { onLibResources } from './lib-resources';
 import * as options from './options.dev';
-import { port, project, projectSrc } from './tikui-loader';
+import { port, projectCache, projectSrc } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 import { renderPugFile } from './pug-util';
@@ -14,16 +14,14 @@ const reload = require('reload');
 
 const app = express();
 
-const cacheDir: string = path.resolve(project, 'cache');
-
 app.use(cors());
 
 // Set views to source files
 app.set('views', projectSrc);
 
 // Create path
-if (!fs.existsSync(cacheDir)) {
-  fs.mkdirSync(cacheDir);
+if (!fs.existsSync(projectCache)) {
+  fs.mkdirSync(projectCache, {recursive: true});
 }
 
 const toHtml = renderPugFile(options);
@@ -38,7 +36,7 @@ const renderPage = (res: Response, next: NextFunction) => (filename: string) => 
   return next();
 };
 
-app.use(/^\/$/, (req: Request, res: Response, next: NextFunction) => {
+app.use(/^\/$/, (_, res: Response, next: NextFunction) => {
   renderPage(res, next)('index');
 });
 
@@ -54,7 +52,7 @@ app.use(/^\/(.+).html$/, (req: Request, res: Response, next: NextFunction) => {
 
 app.use(/^\/(.+).css$/, (req: Request, res: Response, next: NextFunction) => {
   const cssUri = req.baseUrl.replace(/^\/(.+).css/, '$1.css');
-  const cssCacheUrl = path.resolve(cacheDir, cssUri);
+  const cssCacheUrl = path.resolve(projectCache, cssUri);
   if (!fs.existsSync(cssCacheUrl)) {
     return next();
   }
@@ -82,7 +80,7 @@ onDocResources((absoluteFrom, relativeTo, type) => {
     case 'scss':
       app.use(
         uriTo,
-        (req: Request, res: Response) => {
+        (_, res: Response) => {
           res.set('Content-Type', 'text/css');
           res.send(sassRender(absoluteFrom));
         }
@@ -103,7 +101,7 @@ app.listen(port, () => console.log(`Styles are available at http://localhost:${p
 reload(app).then((reloadReturned: any) => {
   watch([
     projectSrc,
-    cacheDir
+    projectCache,
   ], {
     recursive: true
   }, (evt: any, name: any) => {
