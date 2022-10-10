@@ -21,9 +21,24 @@ jobs:
           npm test
         env:
           CI: true
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: node check
+        run: |
+          npm ci
+          npm run build
+          npm test
+        env:
+          CI: true
   deploy:
     if: startsWith(github.event.ref, 'refs/tags/')
-    needs: build
+    needs: ["build", "build-windows"]
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
