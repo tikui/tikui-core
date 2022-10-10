@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {

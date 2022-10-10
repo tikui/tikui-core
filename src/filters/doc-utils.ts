@@ -4,7 +4,8 @@ import pug from 'pug';
 import showdown from 'showdown';
 import escapeHtml = require('escape-html');
 import { DocUtils, Render, Code } from './Documentation';
-import { project, projectSrc } from '../tikui-loader';
+import { projectSrc } from '../tikui-loader';
+import { toPosixPath } from '../path-util';
 
 const html2pug = require('html2pug');
 
@@ -32,7 +33,7 @@ const getRender = (filename: string) => (template: Render): string => {
     return 'Please provide a render file: ' + renderFilename;
   }
 
-  const htmlFilenameLink = relativeRenderFilename.replace(/^(.+).pug$/, '[[TIKUI_BASEPATH]]$1.html');
+  const htmlFilenameLink = toPosixPath(relativeRenderFilename).replace(/^(.+).pug$/, '[[TIKUI_BASEPATH]]$1.html');
 
   return template(htmlFilenameLink);
 };

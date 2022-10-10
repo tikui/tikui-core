@@ -5,6 +5,8 @@ import * as fs from 'fs';
 const rimraf = require("rimraf");
 const copy = require('recursive-copy');
 
+const ERROR_PATH_SEP = `${path.sep}${path.sep}?`
+
 const COMMAND_BUILD = 'node ../../dist/tikui-core.js build';
 
 const NODE_MODULES_PATH = resolve(__dirname, '..', 'node_modules');
@@ -75,7 +77,7 @@ describe('Command line usage', () => {
       });
 
       expect(result.toString()).toContain('index.html');
-      expect(result.toString()).toContain('documentation/style.css');
+      expect(result.toString()).toContain(`documentation${path.sep}style.css`);
       expectExistsFile('index.html');
       expectExistsFile('tikui.css');
       expectExistsFile('sub-dir/index.html');
@@ -84,13 +86,13 @@ describe('Command line usage', () => {
       expect(indexContent).toContain('Component Markdown');
       expect(indexContent).toContain('src="component/component.render.html"');
       expect(indexContent).toContain('&lt;div class=&quot;component-class&quot;&gt;Component code&lt;/div&gt;');
-      expect(indexContent).toMatch(/Please provide a render file:(.+)\/src\/only-md-component\/only-md-component.render.pug/);
-      expect(indexContent).toMatch(/Please provide a code file:(.+)\/src\/only-md-component\/only-md-component.code.pug/);
+      expect(indexContent).toMatch(new RegExp(`Please provide a render file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.render.pug`));
+      expect(indexContent).toMatch(new RegExp(`Please provide a code file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.code.pug`));
       expect(indexContent).toContain('Template Markdown');
       expect(indexContent).toContain('href="template/template.render.html"');
       expect(indexContent).toContain('&lt;div class=&quot;template-class&quot;&gt;Template code&lt;/div&gt;');
-      expect(indexContent).toMatch(/Please provide a render file:(.+)\/src\/only-md-template\/only-md-template.render.pug/);
-      expect(indexContent).toMatch(/Please provide a code file:(.+)\/src\/only-md-template\/only-md-template.code.pug/);
+      expect(indexContent).toMatch(new RegExp(`Please provide a render file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-template${ERROR_PATH_SEP}only-md-template.render.pug`));
+      expect(indexContent).toMatch(new RegExp(`Please provide a code file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-template${ERROR_PATH_SEP}only-md-template.code.pug`));
       expect(indexContent).toContain('href="lib/');
       expect(indexContent).toContain('href="documentation/');
       expect(subIndexContent).toContain('href="../lib/');
