@@ -11,6 +11,7 @@ interface TikuiConfig {
   cache?: string;
   expose?: ExposedResources;
   port?: number;
+  reloadPort?: number;
 }
 
 export const config: TikuiConfig = require(path.resolve(project, 'tikuiconfig.json'));
@@ -25,3 +26,4 @@ export const projectSrc = path.resolve(project, srcDir);
 export const projectDist = path.resolve(project, distDir);
 export const projectCache = path.resolve(project, cacheDir);
 export const port = optionalOr(config.port, 3000);
+export const reloadPort = optionalOr(config.reloadPort, 3030);
