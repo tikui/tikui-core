@@ -16,7 +16,7 @@ You can use it by using [Tikui CLI](https://www.github.com/tikui/tikui-cli).
 
 The other way to use it is on a node project as a dependency, here is an example of use:
 
-```bash
+```shell
 mkdir example-project
 cd example-project
 npm init
@@ -33,12 +33,23 @@ Tikui is started, you may see how sources are organized to understand how to org
 
 ### Install
 
-    npm i
+```shell
+npm i
+```
 
 ### Contribute
 
 Tikui core contains integration and unit tests to specify features, you have to launch tests using npm:
 
-    npm test
+```shell
+npm test
+```
 
 Then you can add other tests to make a new feature and when all your feature tests are green you can create a Pull Request.
+
+If you want to check the served generated Tikui is correct, please launch:
+
+```shell
+npm run component:open
+```
+Then you can add new [Cypress](https://www.cypress.io/) scenarios and tests.
