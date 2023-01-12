@@ -25,5 +25,6 @@ const cacheDir = optionalOr(config.cache, '.tikui-cache');
 export const projectSrc = path.resolve(project, srcDir);
 export const projectDist = path.resolve(project, distDir);
 export const projectCache = path.resolve(project, cacheDir);
+export const projectNodeModules = path.resolve(project, 'node_modules');
 export const port = optionalOr(config.port, 3000);
 export const reloadPort = optionalOr(config.reloadPort, 3030);
