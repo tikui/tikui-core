@@ -24,7 +24,10 @@ const pugCopy: any = {
 const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`),
+    (copyOperation: any) => {
+      if (!process.argv[2]) return
+      console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`)
+    },
   )
   .on(
     copy.events.ERROR,

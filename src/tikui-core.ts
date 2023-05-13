@@ -26,7 +26,7 @@ const serve = () => {
 
 const ordered = (...commands: string[]) => commands.join(' && ');
 
-const build = () => {
+const build = (cmdOptions?: string) => {
   console.log(`Building on ${projectDist} directory.`);
   rimraf.sync(projectDist);
   fs.mkdirSync(projectDist, {
@@ -34,7 +34,7 @@ const build = () => {
   });
   const { result } = concurrently([
     SASS_BUILD,
-    ordered(ASSETS_BUILD, PUG_BUILD),
+    ordered(`${ASSETS_BUILD} ${cmdOptions ?? ''}`, `${PUG_BUILD} ${cmdOptions?? ''}`),
   ]);
   result.then().catch((executions): void => {
     const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
@@ -51,7 +51,10 @@ program
 
 program
   .command('build')
-  .action(build);
+  .option('--quiet', 'build without info log')
+  .action(function() {
+    return build(this.opts()?.quiet ? '--quiet' : undefined)
+  });
 
 program
   .name('tikui')
