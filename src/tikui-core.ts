@@ -34,7 +34,7 @@ const build = (cmdOptions?: string) => {
   });
   const { result } = concurrently([
     SASS_BUILD,
-    ordered(`${ASSETS_BUILD} ${cmdOptions ?? ''}`, `${PUG_BUILD} ${cmdOptions?? ''}`),
+    ordered(`${ASSETS_BUILD} ${cmdOptions}`, `${PUG_BUILD} ${cmdOptions}`),
   ]);
   result.then().catch((executions): void => {
     const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
