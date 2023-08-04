@@ -30,7 +30,11 @@ if (!fs.existsSync(projectDist)) {
 const manageCopy = (...copyargs: any[]) => copy(...copyargs)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => console.info(`${copyOperation.src} => ${copyOperation.dest}`),
+    (copyOperation: any) => {
+      // console.log('---process.argv[2]: ----', process.argv[2])
+      if (process.argv[2]) return
+      console.info(`${copyOperation.src} => ${copyOperation.dest}`)
+    },
   )
   .on(
     copy.events.ERROR,
@@ -44,6 +48,8 @@ const manageSassCopy = (from: string, to: string) => {
   const rendered = sassRender(from);
   fs.mkdirSync(toDir, {recursive: true});
   fs.writeFileSync(to, rendered);
+  // console.log('---process.argv[2]: ----', process.argv[2])
+  if (process.argv[2]) return
   console.info(`${from} => ${to} using SCSS`);
 };
 
