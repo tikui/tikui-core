@@ -27,14 +27,14 @@ const serve = () => {
 const ordered = (...commands: string[]) => commands.join(' && ');
 
 const build = (cmdOptions?: string) => {
-  console.log(`Building on ${projectDist} directory.`);
+  // console.log(`Building on ${projectDist} directory.`);
   rimraf.sync(projectDist);
   fs.mkdirSync(projectDist, {
     recursive: true,
   });
   const { result } = concurrently([
     SASS_BUILD,
-    ordered(`${ASSETS_BUILD} ${cmdOptions}`, `${PUG_BUILD} ${cmdOptions}`),
+    cmdOptions ? ordered(`${ASSETS_BUILD} build -- ${cmdOptions}`, `${PUG_BUILD} build -- ${cmdOptions}`) : ordered(ASSETS_BUILD, PUG_BUILD),
   ]);
   result.then().catch((executions): void => {
     const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
@@ -52,8 +52,10 @@ program
 program
   .command('build')
   .option('--quiet', 'build without info log')
-  .action(function() {
-    return build(this.opts()?.quiet ? '--quiet' : undefined)
+  .action((str, options) => {
+    // console.log('str: ', str)
+    const quietOption = options?.args?.find((arg: any) => arg === '--quiet')
+    build(quietOption)
   });
 
 program

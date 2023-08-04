@@ -8,6 +8,7 @@ const copy = require('recursive-copy');
 const ERROR_PATH_SEP = `${path.sep}${path.sep}?`
 
 const COMMAND_BUILD = 'node ../../dist/tikui-core.js build';
+const COMMAND_QUIET_BUILD = 'node ../../dist/tikui-core.js build -- --quiet';
 
 const NODE_MODULES_PATH = resolve(__dirname, '..', 'node_modules');
 
@@ -44,6 +45,19 @@ const removeTikui = (tikuiPathList: TikuiPathList): void => {
 const buildTikui = (pathList: TikuiPathList) => {
   try  {
     return execSync(COMMAND_BUILD, {
+      cwd: pathList.path,
+      env: {
+        ...process.env,
+        TIKUI_PATH: pathList.path,
+      }
+    });
+  } catch (e) {
+    throw [e.stdout.toString(), e.stderr.toString()].join('\n');
+  }
+}
+const buildTikuiWithQuiet = (pathList: TikuiPathList) => {
+  try  {
+    return execSync(COMMAND_QUIET_BUILD, {
       cwd: pathList.path,
       env: {
         ...process.env,
@@ -127,6 +141,82 @@ describe('Command line usage', () => {
       await createTikui(faketikuiDifferentPath.modules);
 
       buildTikui(faketikuiDifferentPath);
+
+      expectExistsFile('index.html');
+      expectExistsFile('tikui.css');
+      expectExistsFile('component/component.render.html');
+    });
+  });
+
+  describe('Classic tikui (with quiet build)', () => {
+    beforeEach(() => removeTikui(faketikui));
+
+    afterEach(() => removeTikui(faketikui))
+
+    it('Should build fake tikui', async () => {
+      const expectExistsFile = expectExistingPath(faketikui.dist);
+      const stringContent = stringContaining(faketikui.dist);
+      await createTikui(faketikui.modules);
+
+      const result = execSync(COMMAND_QUIET_BUILD, {
+        cwd: faketikui.path,
+        env: {
+          ...process.env,
+          TIKUI_PATH: faketikui.path,
+        }
+      });
+
+      expect(result.toString()).toContain('index.html');
+      expect(result.toString()).toContain(`documentation${path.sep}style.css`);
+      expectExistsFile('index.html');
+      expectExistsFile('tikui.css');
+      expectExistsFile('sub-dir/index.html');
+      const indexContent = stringContent('index.html');
+      const subIndexContent = stringContent('sub-dir/index.html');
+      expect(indexContent).toContain('Component Markdown');
+      expect(indexContent).toContain('src="component/component.render.html"');
+      expect(indexContent).toContain('&lt;div class=&quot;component-class&quot;&gt;Component code&lt;/div&gt;');
+      expect(indexContent).toMatch(new RegExp(`Please provide a render file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.render.pug`));
+      expect(indexContent).toMatch(new RegExp(`Please provide a code file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.code.pug`));
+      expect(indexContent).toContain('Template Markdown');
+      expect(indexContent).toContain('href="template/template.render.html"');
+      expect(indexContent).toContain('&lt;div class=&quot;template-class&quot;&gt;Template code&lt;/div&gt;');
+      expect(indexContent).toMatch(new RegExp(`Please provide a render file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-template${ERROR_PATH_SEP}only-md-template.render.pug`));
+      expect(indexContent).toMatch(new RegExp(`Please provide a code file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-template${ERROR_PATH_SEP}only-md-template.code.pug`));
+      expect(indexContent).toContain('href="lib/');
+      expect(indexContent).toContain('href="documentation/');
+      expect(subIndexContent).toContain('href="../lib/');
+      expect(subIndexContent).toContain('href="../documentation/');
+      expect(subIndexContent).toContain('src="../component/component.render.html"')
+    });
+
+    it('Should expose other resources', async () => {
+      const exposedTikui = pathListOf('exposed-tikui');
+      const expectExistsFile = expectExistingPath(exposedTikui.dist);
+      await createTikui(exposedTikui.modules);
+
+      buildTikuiWithQuiet(exposedTikui);
+
+      expectExistsFile('exposed/first.md');
+      expectExistsFile('exposed/second.md');
+      expectExistsFile('exposed/third.txt');
+      expectExistsFile('exposedfile/onefile.txt');
+
+      removeTikui(exposedTikui);
+    });
+  });
+
+  describe('DifferentPath (with quiet build)', () => {
+
+    beforeEach(() => removeTikui(faketikuiDifferentPath));
+
+    afterEach(() => removeTikui(faketikuiDifferentPath));
+
+    it('Should genereate from and to a different place', async () => {
+      const expectExistsFile = expectExistingPath(faketikuiDifferentPath.dist);
+      await createTikui(faketikuiDifferentPath.modules);
+
+      buildTikuiWithQuiet(faketikuiDifferentPath);
 
       expectExistsFile('index.html');
       expectExistsFile('tikui.css');
