@@ -10,5 +10,6 @@
     ":automergePr",
     ":automergeRequireAllStatusChecks"
   ],
-  "prHourlyLimit": 20
+  "prHourlyLimit": 20,
+  "timezone": "Europe/Paris"
 }
