@@ -62,7 +62,7 @@
     "start-server-and-test": "1.15.4",
     "tikuidoc-tikui": "5.0.2",
     "ts-jest": "29.0.4",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "typescript": "4.9.4"
   },
   "bin": {
