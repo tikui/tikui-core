@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
-    "@fontsource/montserrat": "4.5.13",
+    "@fontsource/montserrat": "4.5.14",
     "commander": "9.5.0",
     "concurrently": "7.6.0",
     "cors": "2.8.5",
