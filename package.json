@@ -41,7 +41,7 @@
     "recursive-copy": "2.0.14",
     "reload": "3.2.1",
     "rimraf": "3.0.2",
-    "sass": "1.57.1",
+    "sass": "1.77.2",
     "showdown": "2.1.0",
     "through2": "4.0.2"
   },
@@ -54,7 +54,7 @@
     "@types/node": "18.19.33",
     "@types/pug": "2.0.10",
     "@types/rimraf": "3.0.2",
-    "@types/sass": "1.43.1",
+    "@types/sass": "1.45.0",
     "@types/showdown": "2.0.6",
     "@types/through2": "2.0.38",
     "cypress": "12.17.4",
