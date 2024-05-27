@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,9 +44,28 @@ jobs:
           npm test
         env:
           CI: true
+  # Summary job that allow checking for workflow status
+  # This job is used as required status check to pass before merging to the main branch
+  status-checks:
+    name: status-checks
+    needs: [build-windows, build-linux]
+    permissions:
+      contents: none
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Validation Status checks
+        run: |
+          echo 'Configuration for Status checks that are required'
+          echo '${{ toJSON(needs) }}'
+          if [[ (('skipped' == '${{ needs.build-linux.result }}') || ('success' == '${{ needs.build-linux.result }}')) && (('skipped' == '${{ needs.build-windows.result }}') || ('success' == '${{ needs.build-windows.result }}')) ]]; then
+            exit 0
+          fi
+          exit 1
   deploy:
     if: startsWith(github.event.ref, 'refs/tags/')
-    needs: ["build", "build-windows"]
+    needs: ["status-checks"]
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
