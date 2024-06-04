@@ -2,7 +2,7 @@
 
 import concurrently from 'concurrently';
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import { Command } from 'commander';
 import { projectCache, projectDist, projectNodeModules, projectSrc } from './tikui-loader';
 import fs from 'fs';
@@ -28,7 +28,7 @@ const ordered = (...commands: string[]) => commands.join(' && ');
 
 const build = () => {
   console.log(`Building on ${projectDist} directory.`);
-  rimraf.sync(projectDist);
+  rimrafSync(projectDist);
   fs.mkdirSync(projectDist, {
     recursive: true,
   });

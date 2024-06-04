@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import path, { resolve } from 'path';
 import { existsSync } from 'fs';
 import * as fs from 'fs';
-const rimraf = require("rimraf");
+import { rimrafSync } from 'rimraf';
 const copy = require('recursive-copy');
 
 const ERROR_PATH_SEP = `${path.sep}${path.sep}?`
@@ -36,9 +36,9 @@ const pathListOf = (directory: string): TikuiPathList  => {
 };
 
 const removeTikui = (tikuiPathList: TikuiPathList): void => {
-  rimraf.sync(tikuiPathList.modules);
-  rimraf.sync(tikuiPathList.dist);
-  rimraf.sync(tikuiPathList.cache);
+  rimrafSync(tikuiPathList.modules);
+  rimrafSync(tikuiPathList.dist);
+  rimrafSync(tikuiPathList.cache);
 };
 
 const buildTikui = (pathList: TikuiPathList) => {
