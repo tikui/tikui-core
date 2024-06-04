@@ -2,12 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import pug from 'pug';
 import showdown from 'showdown';
-import escapeHtml = require('escape-html');
+import escapeHtml from "escape-html";
 import { DocUtils, Render, Code } from './Documentation';
-import { projectSrc } from '../tikui-loader';
-import { toPosixPath } from '../path-util';
-
-const html2pug = require('html2pug');
+import {projectSrc} from '../tikui-loader';
+import {toPosixPath} from '../path-util';
+import {htmlToPug} from '@johnsoncodehk/html2pug';
 
 const getCode = (filename: string) => (code: Code): string => {
   const codeFile = filename.replace(/.md$/, '.code.pug');
@@ -18,7 +17,7 @@ const getCode = (filename: string) => (code: Code): string => {
 
   const rendered = pug.renderFile(codeFile, {pretty: true, basedir: projectSrc});
   const escaped = escapeHtml(rendered).trim();
-  const renderedPug = html2pug(rendered, {fragment: true});
+  const renderedPug = htmlToPug(rendered);
   const escapedPug = escapeHtml(renderedPug);
 
   return code(escaped, escapedPug);
