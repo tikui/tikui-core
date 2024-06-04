@@ -33,7 +33,7 @@
     "cors": "2.8.5",
     "escape-html": "1.0.3",
     "express": "4.19.2",
-    "html2pug": "4.0.0",
+    "@johnsoncodehk/html2pug": "1.0.0",
     "node-watch": "0.7.4",
     "prismjs": "1.29.0",
     "pug": "3.0.3",
