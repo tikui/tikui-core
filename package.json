@@ -40,7 +40,7 @@
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
     "reload": "3.2.1",
-    "rimraf": "3.0.2",
+    "rimraf": "5.0.7",
     "sass": "1.77.4",
     "showdown": "2.1.0",
     "through2": "4.0.2"
