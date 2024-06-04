@@ -29,7 +29,7 @@
   "dependencies": {
     "@fontsource/montserrat": "4.5.14",
     "commander": "9.5.0",
-    "concurrently": "7.6.0",
+    "concurrently": "8.2.2",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
     "express": "4.19.2",
