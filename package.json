@@ -57,7 +57,7 @@
     "@types/sass": "1.45.0",
     "@types/showdown": "2.0.6",
     "@types/through2": "2.0.41",
-    "cypress": "12.17.4",
+    "cypress": "13.11.0",
     "jest": "29.7.0",
     "start-server-and-test": "2.0.3",
     "tikuidoc-tikui": "5.0.2",
