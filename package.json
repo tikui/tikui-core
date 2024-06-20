@@ -41,7 +41,7 @@
     "recursive-copy": "2.0.14",
     "reload": "3.2.1",
     "rimraf": "5.0.7",
-    "sass": "1.77.5",
+    "sass": "1.77.6",
     "showdown": "2.1.0",
     "through2": "4.0.2"
   },
