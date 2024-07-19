@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -13,6 +13,13 @@
     "component-test:open": "start-server-and-test component-test:start http://localhost:3005 component-test:cypress:open",
     "test": "jest --collectCoverage --detectOpenHandles"
   },
+  "files": [
+    "src",
+    "dist",
+    "LICENSE",
+    "README.md",
+    "tsconfig.json"
+  ],
   "keywords": [
     "ui",
     "ui kit",
@@ -28,12 +35,12 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@fontsource/montserrat": "4.5.14",
+    "@johnsoncodehk/html2pug": "1.0.0",
     "commander": "9.5.0",
     "concurrently": "8.2.2",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
     "express": "4.19.2",
-    "@johnsoncodehk/html2pug": "1.0.0",
     "node-watch": "0.7.4",
     "prismjs": "1.29.0",
     "pug": "3.0.3",
@@ -41,9 +48,11 @@
     "recursive-copy": "2.0.14",
     "reload": "3.2.1",
     "rimraf": "6.0.1",
-    "sass": "1.77.8",
     "showdown": "2.1.0",
     "through2": "4.0.2"
+  },
+  "peerDependencies": {
+    "sass": ">=1.45.0 <2.0.0"
   },
   "devDependencies": {
     "@types/cors": "2.8.17",
@@ -56,6 +65,7 @@
     "@types/through2": "2.0.41",
     "cypress": "13.13.0",
     "jest": "29.7.0",
+    "sass": "1.77.8",
     "start-server-and-test": "2.0.4",
     "tikuidoc-tikui": "5.0.2",
     "ts-jest": "29.2.2",
