@@ -21,7 +21,7 @@ mkdir example-project
 cd example-project
 npm init
 # Follow instructions
-npm i @tikui/core tikuidoc-tikui
+npm i @tikui/core tikuidoc-tikui sass
 echo '{"documentation": "tikui"}' > tikuiconfig.json
 mkdir src
 npx tikui-core serve
