@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
+    "@tikui/reload": "4.0.0",
     "commander": "12.1.0",
     "concurrently": "8.2.2",
     "cors": "2.8.5",
@@ -45,7 +46,6 @@
     "pug": "3.0.3",
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
-    "reload": "3.2.1",
     "rimraf": "6.0.1",
     "showdown": "2.1.0",
     "through2": "4.0.2"
