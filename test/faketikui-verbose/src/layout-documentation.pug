@@ -1,0 +1,9 @@
+extends /documentation/layout-atomic
+
+include /documentation/mixin
+
+block header
+  block vars
+    -let active='';
+    -const isActive = current => current === active;
+  +tikui-navbar('[[TIKUI_BASEPATH]]', 'Tikui')

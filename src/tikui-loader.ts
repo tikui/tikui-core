@@ -12,6 +12,7 @@ interface TikuiConfig {
   expose?: ExposedResources;
   port?: number;
   reloadPort?: number;
+  verbose?: boolean;
 }
 
 export const config: TikuiConfig = require(path.resolve(project, 'tikuiconfig.json'));
