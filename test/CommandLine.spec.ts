@@ -56,6 +56,7 @@ const buildTikui = (pathList: TikuiPathList) => {
 }
 const faketikui = pathListOf('faketikui');
 const faketikuiDifferentPath = pathListOf('faketikui-different-path');
+const faketikuiVerbose = pathListOf('faketikui-verbose');
 
 describe('Command line usage', () => {
   describe('Classic tikui', () => {
@@ -68,7 +69,7 @@ describe('Command line usage', () => {
       const stringContent = stringContaining(faketikui.dist);
       await createTikui(faketikui.modules);
 
-      const result = execSync(COMMAND_BUILD, {
+      execSync(COMMAND_BUILD, {
         cwd: faketikui.path,
         env: {
           ...process.env,
@@ -76,8 +77,6 @@ describe('Command line usage', () => {
         }
       });
 
-      expect(result.toString()).toContain('index.html');
-      expect(result.toString()).toContain(`documentation${path.sep}style.css`);
       expectExistsFile('index.html');
       expectExistsFile('tikui.css');
       expectExistsFile('sub-dir/index.html');
@@ -131,6 +130,54 @@ describe('Command line usage', () => {
       expectExistsFile('index.html');
       expectExistsFile('tikui.css');
       expectExistsFile('component/component.render.html');
+    });
+  });
+
+  describe('Verbosity', () => {
+    describe('Not verbose', () => {
+      const spiedConsole = jest.spyOn(console, 'log');
+
+      beforeEach(() => {
+        spiedConsole.mockClear();
+        removeTikui(faketikui);
+      });
+
+      afterEach(() => removeTikui(faketikui));
+
+      it('should not show files', async () => {
+        await createTikui(faketikui.modules);
+
+        const out = buildTikui(faketikui);
+
+        const stringOut = out.toString();
+        expect(stringOut).not.toMatch(/.+ => .+/);
+        expect(stringOut).toMatch(/Building on .+ directory/);
+      });
+    });
+
+    describe('Is verbose', () => {
+      const spiedConsole = jest.spyOn(console, 'log');
+
+      beforeEach(() => {
+        spiedConsole.mockClear();
+        removeTikui(faketikuiVerbose);
+      });
+
+      afterEach(() => removeTikui(faketikuiVerbose));
+
+      it('should show files', async () => {
+        await createTikui(faketikuiVerbose.modules);
+
+        const out = buildTikui(faketikuiVerbose);
+
+        const stringOut = out.toString();
+        expect(stringOut).toContain('index.html');
+        expect(stringOut).toContain(`documentation${path.sep}style.css`);
+        expect(stringOut).toMatch(/.+ => .+/);
+        expect(stringOut).toMatch(/=> .+ using SCSS/);
+        expect(stringOut).toMatch(/=> .+ using Pug/);
+      });
+
     });
   });
 });

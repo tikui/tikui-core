@@ -3,7 +3,7 @@ import { onLibResources } from './lib-resources';
 const copy = require('recursive-copy');
 import path from 'path';
 import fs from 'fs';
-import { projectDist, projectSrc } from './tikui-loader';
+import {config, projectDist, projectSrc} from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 
@@ -30,7 +30,11 @@ if (!fs.existsSync(projectDist)) {
 const manageCopy = (...copyargs: any[]) => copy(...copyargs)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => console.info(`${copyOperation.src} => ${copyOperation.dest}`),
+    (copyOperation: any) => {
+      if (config.verbose) {
+        console.info(`${copyOperation.src} => ${copyOperation.dest}`);
+      }
+    },
   )
   .on(
     copy.events.ERROR,
@@ -44,7 +48,9 @@ const manageSassCopy = (from: string, to: string) => {
   const rendered = sassRender(from);
   fs.mkdirSync(toDir, {recursive: true});
   fs.writeFileSync(to, rendered);
-  console.info(`${from} => ${to} using SCSS`);
+  if (config.verbose) {
+    console.info(`${from} => ${to} using SCSS`);
+  }
 };
 
 manageCopy(projectSrc, projectDist, options);

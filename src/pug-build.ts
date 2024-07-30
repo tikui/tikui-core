@@ -1,4 +1,4 @@
-import { projectDist, projectSrc } from './tikui-loader';
+import {config, projectDist, projectSrc} from './tikui-loader';
 import through2 from 'through2';
 import copy from 'recursive-copy';
 import options = require('./options');
@@ -24,7 +24,11 @@ const pugCopy: any = {
 const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`),
+    (copyOperation: any) => {
+      if (config.verbose) {
+        console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`);
+      }
+    },
   )
   .on(
     copy.events.ERROR,
