@@ -5,7 +5,7 @@ export const project = process.env.TIKUI_PATH || process.cwd();
 type ExposedResources = Record<string, string>;
 
 interface TikuiConfig {
-  documentation: string;
+  documentation?: string;
   src?: string;
   dist?: string;
   cache?: string;

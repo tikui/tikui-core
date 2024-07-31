@@ -57,6 +57,7 @@ const buildTikui = (pathList: TikuiPathList) => {
 const faketikui = pathListOf('faketikui');
 const faketikuiDifferentPath = pathListOf('faketikui-different-path');
 const faketikuiVerbose = pathListOf('faketikui-verbose');
+const faketikuiSelf = pathListOf('faketikui-self');
 
 describe('Command line usage', () => {
   describe('Classic tikui', () => {
@@ -178,6 +179,34 @@ describe('Command line usage', () => {
         expect(stringOut).toMatch(/=> .+ using Pug/);
       });
 
+    });
+  });
+
+  describe('No theme', () => {
+    beforeEach(() => removeTikui(faketikuiSelf));
+
+    afterEach(() => removeTikui(faketikuiSelf));
+
+    it('should use parts from module itself', async () => {
+      await createTikui(faketikuiSelf.modules);
+      const expectExistsFile = expectExistingPath(faketikuiSelf.dist);
+      const stringContent = stringContaining(faketikuiSelf.dist);
+
+      const out = buildTikui(faketikuiSelf);
+
+      expectExistsFile('index.html');
+      expectExistsFile('tikui.css');
+
+      const indexContent = stringContent('index.html');
+      expect(indexContent).toMatch(/<div class="self-component--code">[^]*<div class="self-code">[^]*<div class="self-code--html">[^]*component-class[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-component--code">[^]*<div class="self-code">[^]*<div class="self-code--pug">[^]*\.component-class[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-component--markdown">[^]*<h2.*>Component Markdown<\/h2>[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-component--render">[^]*<iframe class="self-component-iframe.*"><\/iframe>/);
+
+      expect(indexContent).toMatch(/<div class="self-template--code">[^]*<div class="self-code">[^]*<div class="self-code--html">[^]*template-class[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-template--code">[^]*<div class="self-code">[^]*<div class="self-code--pug">[^]*\.template-class[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-template--markdown">[^]*<h2.*>Template Markdown<\/h2>[^]*<\/div>/);
+      expect(indexContent).toMatch(/<div class="self-template--render">[^]*<a class="self-button".*>Show<\/a>/);
     });
   });
 });
