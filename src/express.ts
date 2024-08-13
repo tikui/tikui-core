@@ -10,7 +10,7 @@ import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 import { renderPugFile } from './pug-util';
 
-const reload = require('@tikui/reload');
+const reload = require('reload');
 
 const app = express();
 
