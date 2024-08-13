@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -35,7 +35,7 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
-    "@tikui/reload": "4.0.0",
+    "reload": "3.2.2",
     "commander": "12.1.0",
     "concurrently": "8.2.2",
     "cors": "2.8.5",
