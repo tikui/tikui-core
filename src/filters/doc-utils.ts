@@ -20,7 +20,7 @@ const getCode = (filename: string) => (code: Code): string => {
   const renderedPug = htmlToPug(rendered);
   const escapedPug = escapeHtml(renderedPug);
 
-  return code(escaped, escapedPug);
+  return code(escaped, escapedPug, rendered, renderedPug);
 };
 
 const getRender = (filename: string) => (template: Render): string => {

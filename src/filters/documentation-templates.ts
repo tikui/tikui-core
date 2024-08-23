@@ -26,6 +26,8 @@ interface TemplateRenderVariables {
 interface CodeVariables {
   htmlCode: string;
   pugCode: string;
+  htmlRaw: string;
+  pugRaw: string;
 }
 
 type Component = (variables: ComponentVariables) => string;
