@@ -23,7 +23,7 @@ describe('Documentation Templates', () => {
     expect(result).toContain('/path/to/template');
   });
   it('Should compile code', () => {
-    const result = code({htmlCode: 'HTML example', pugCode: 'pug example'});
+    const result = code({htmlCode: 'HTML example', pugCode: 'pug example', htmlRaw: 'HTML raw example', pugRaw: 'pug raw example'});
     expect(result).toContain('HTML example');
     expect(result).toContain('pug example');
   });

@@ -2,9 +2,11 @@ import { docUtils } from './doc-utils';
 import { Render, Code, TemplateOptions } from './Documentation';
 import * as documentationTemplates from './documentation-templates';
 
-const code: Code = (escaped, escapedPug) => documentationTemplates.code({
+const code: Code = (escaped, escapedPug, htmlRaw, pugRaw) => documentationTemplates.code({
   htmlCode: escaped,
   pugCode: escapedPug,
+  htmlRaw,
+  pugRaw,
 });
 
 const render: Render = (src) => documentationTemplates.templateRender({

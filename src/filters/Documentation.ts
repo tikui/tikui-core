@@ -1,4 +1,4 @@
-export type Code = (escaped: string, escapedPug: string) => string;
+export type Code = (escaped: string, escapedPug: string, htmlRaw: string, pugRaw: string) => string;
 export type Render = (src: string) => string;
 export type Markdown = () => string;
 
