@@ -37,7 +37,7 @@
     "@johnsoncodehk/html2pug": "1.0.0",
     "reload": "3.3.0",
     "commander": "12.1.0",
-    "concurrently": "9.0.1",
+    "concurrently": "9.1.0",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
     "express": "4.21.1",
