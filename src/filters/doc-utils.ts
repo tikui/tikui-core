@@ -18,7 +18,7 @@ const getCode = (filename: string) => (code: Code): string => {
   const rendered = pug.renderFile(codeFile, {pretty: true, basedir: projectSrc});
   const escaped = escapeHtml(rendered).trim();
   const renderedPug = htmlToPug(rendered);
-  const escapedPug = escapeHtml(renderedPug);
+  const escapedPug = escapeHtml(renderedPug).trim();
 
   return code(escaped, escapedPug, rendered, renderedPug);
 };
