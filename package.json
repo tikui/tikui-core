@@ -1,6 +1,6 @@
 {
   "name": "@tikui/core",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
@@ -66,7 +66,7 @@
     "jest": "29.7.0",
     "sass": "1.83.0",
     "start-server-and-test": "2.0.9",
-    "tikuidoc-tikui": "8.0.0",
+    "tikuidoc-tikui": "8.0.1",
     "ts-jest": "29.2.5",
     "ts-node": "10.9.2",
     "typescript": "5.7.2"
