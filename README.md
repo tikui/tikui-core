@@ -50,6 +50,14 @@ Then you can add other tests to make a new feature and when all your feature tes
 If you want to check the served generated Tikui is correct, please launch:
 
 ```shell
-npm run component:open
+npm run component-test:open
 ```
+
 Then you can add new [Cypress](https://www.cypress.io/) scenarios and tests.
+
+It's also possible to launch Component Tests in preview mode using:
+
+```shell
+npm run component-test:build
+npm run component-test:preview:open
+```
