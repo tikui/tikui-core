@@ -1,16 +1,20 @@
 {
   "name": "@tikui/core",
-  "version": "6.2.3",
+  "version": "6.3.0",
   "description": "Tikui core",
   "main": "src/tikui.js",
   "scripts": {
     "build": "npm run clean & tsc",
     "clean": "rimraf dist",
     "component-test:start": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js serve",
+    "component-test:build": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js build",
+    "component-test:preview": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js preview",
     "component-test:cypress": "cypress run",
     "component-test:cypress:open": "cypress open",
     "component-test:ci": "start-server-and-test component-test:start http://localhost:3005 component-test:cypress",
+    "component-test:preview:ci": "start-server-and-test component-test:preview http://localhost:3005 component-test:cypress",
     "component-test:open": "start-server-and-test component-test:start http://localhost:3005 component-test:cypress:open",
+    "component-test:preview:open": "start-server-and-test component-test:preview http://localhost:3005 component-test:cypress:open",
     "test": "jest --collectCoverage --detectOpenHandles"
   },
   "files": [
@@ -36,7 +40,7 @@
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
     "reload": "3.3.0",
-    "commander": "12.1.0",
+    "commander": "13.0.0",
     "concurrently": "9.1.2",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
