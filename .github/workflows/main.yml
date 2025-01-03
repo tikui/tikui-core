@@ -32,6 +32,8 @@ jobs:
           npm run build
           npm test
           npm run component-test:ci
+          npm run component-test:build
+          npm run component-test:preview:ci
         env:
           CI: true
   build-windows:
