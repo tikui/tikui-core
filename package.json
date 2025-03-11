@@ -46,7 +46,7 @@
     "escape-html": "1.0.3",
     "express": "4.21.2",
     "node-watch": "0.7.4",
-    "prismjs": "1.29.0",
+    "prismjs": "1.30.0",
     "pug": "3.0.3",
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
