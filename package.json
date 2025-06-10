@@ -58,7 +58,7 @@
     "sass": ">=1.45.0 <2.0.0"
   },
   "devDependencies": {
-    "@types/cors": "2.8.18",
+    "@types/cors": "2.8.19",
     "@types/escape-html": "1.0.4",
     "@types/express": "4.17.22",
     "@types/jest": "29.5.14",
