@@ -40,7 +40,7 @@
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
     "reload": "3.4.2",
-    "commander": "13.1.0",
+    "commander": "14.0.0",
     "concurrently": "9.2.1",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
