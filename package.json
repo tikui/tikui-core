@@ -69,7 +69,7 @@
     "cypress": "15.1.0",
     "jest": "30.1.3",
     "sass": "1.92.0",
-    "start-server-and-test": "2.0.13",
+    "start-server-and-test": "2.1.0",
     "tikuidoc-tikui": "9.0.0",
     "ts-jest": "29.4.1",
     "ts-node": "10.9.2",
