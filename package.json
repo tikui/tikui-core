@@ -68,7 +68,7 @@
     "@types/through2": "2.0.41",
     "cypress": "15.2.0",
     "jest": "30.1.3",
-    "sass": "1.92.1",
+    "sass": "1.93.0",
     "start-server-and-test": "2.1.2",
     "tikuidoc-tikui": "9.0.0",
     "ts-jest": "29.4.4",
