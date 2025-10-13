@@ -71,7 +71,7 @@
     "sass": "1.93.2",
     "start-server-and-test": "2.1.2",
     "tikuidoc-tikui": "9.0.0",
-    "ts-jest": "29.4.4",
+    "ts-jest": "29.4.5",
     "ts-node": "10.9.2",
     "typescript": "5.9.3"
   },
