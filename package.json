@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/cors": "2.8.19",
     "@types/escape-html": "1.0.4",
-    "@types/express": "5.0.3",
+    "@types/express": "5.0.4",
     "@types/jest": "30.0.0",
     "@types/node": "22.18.12",
     "@types/pug": "2.0.10",
