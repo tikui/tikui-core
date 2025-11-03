@@ -50,7 +50,7 @@
     "pug": "3.0.3",
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
-    "rimraf": "6.0.1",
+    "rimraf": "6.1.0",
     "showdown": "2.1.0",
     "through2": "4.0.2"
   },
