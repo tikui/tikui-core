@@ -44,7 +44,7 @@
     "concurrently": "9.2.1",
     "cors": "2.8.5",
     "escape-html": "1.0.3",
-    "express": "5.1.0",
+    "express": "5.2.0",
     "node-watch": "0.7.4",
     "prismjs": "1.30.0",
     "pug": "3.0.3",
