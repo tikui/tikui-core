@@ -42,7 +42,7 @@
     "reload": "3.4.2",
     "commander": "14.0.2",
     "concurrently": "9.2.1",
-    "cors": "2.8.5",
+    "cors": "2.8.6",
     "escape-html": "1.0.3",
     "express": "5.2.1",
     "node-watch": "0.7.4",
