@@ -39,7 +39,7 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
-    "reload": "3.4.2",
+    "reload": "3.4.3",
     "commander": "14.0.3",
     "concurrently": "9.2.1",
     "cors": "2.8.6",
