@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import concurrently from 'concurrently';
-import path from 'path';
+import concurrently, { CloseEvent } from 'concurrently';
+import path from 'node:path';
 import { rimrafSync } from 'rimraf';
 import { Command } from 'commander';
 import { projectCache, projectDist, projectNodeModules, projectSrc } from './tikui-loader';
-import fs from 'fs';
+import fs from 'node:fs';
 
-const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
+const BUILD_DIR = path.resolve(import.meta.dirname, '..', 'dist');
 
 const SASS_CACHE = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectCache}" -s expanded --watch`;
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
@@ -49,8 +49,10 @@ const build = () => {
     SASS_BUILD,
     ordered(ASSETS_BUILD, PUG_BUILD),
   ]);
-  result.then().catch((executions): void => {
-    const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
+  result.then().catch((executions: CloseEvent[]): void => {
+    const firstCode = executions
+      .map((execution) => execution.exitCode)
+      .find((code): code is number => typeof code === 'number' && code > 0);
     console.error('Build failed, first error code found:', firstCode);
     return process.exit(firstCode);
   });

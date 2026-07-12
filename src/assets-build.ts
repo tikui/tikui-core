@@ -1,13 +1,12 @@
 import { onLibResources } from './lib-resources';
-
-const copy = require('recursive-copy');
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import {config, projectDist, projectSrc} from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
+import { copy, type CopyOptions } from './copy';
 
-const options: any = {
+const options: CopyOptions = {
   overwrite: true,
   expand: true,
   dot: true,
@@ -19,7 +18,7 @@ const options: any = {
   ],
 };
 
-const libOptions: any = {
+const libOptions: CopyOptions = {
   overwrite: true,
 };
 
@@ -27,10 +26,10 @@ if (!fs.existsSync(projectDist)) {
   fs.mkdirSync(projectDist);
 }
 
-const manageCopy = (...copyargs: any[]) => copy(...copyargs)
+const manageCopy = (source: string, dest: string, copyOptions: CopyOptions) => copy(source, dest, copyOptions)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => {
+    (copyOperation) => {
       if (config.verbose) {
         console.info(`${copyOperation.src} => ${copyOperation.dest}`);
       }
@@ -38,9 +37,9 @@ const manageCopy = (...copyargs: any[]) => copy(...copyargs)
   )
   .on(
     copy.events.ERROR,
-    (copyOperation: any) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
+    (_, copyOperation) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
   )
-  .catch((err: any) => console.error('Error during copy', err))
+  .catch((err: unknown) => console.error('Error during copy', err))
 ;
 
 const manageSassCopy = (from: string, to: string) => {

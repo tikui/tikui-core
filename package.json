@@ -2,10 +2,11 @@
   "name": "@tikui/core",
   "version": "7.0.1",
   "description": "Tikui core",
-  "main": "src/tikui.js",
+  "type": "module",
   "scripts": {
-    "build": "npm run clean & tsc",
+    "build": "tsdown",
     "clean": "rimraf dist",
+    "typecheck": "tsc",
     "component-test:start": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js serve",
     "component-test:build": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js build",
     "component-test:preview": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js preview",
@@ -15,14 +16,13 @@
     "component-test:preview:ci": "start-server-and-test component-test:preview http://localhost:3005 component-test:cypress",
     "component-test:open": "start-server-and-test component-test:start http://localhost:3005 component-test:cypress:open",
     "component-test:preview:open": "start-server-and-test component-test:preview http://localhost:3005 component-test:cypress:open",
-    "test": "jest --collectCoverage --detectOpenHandles"
+    "test": "vitest run --coverage"
   },
   "files": [
     "src",
     "dist",
     "LICENSE",
-    "README.md",
-    "tsconfig.json"
+    "README.md"
   ],
   "keywords": [
     "ui",
@@ -33,13 +33,15 @@
   "repository": "github:tikui/tikui-core",
   "author": "Anthony Rey",
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "bugs": {
     "url": "https://github.com/tikui/tikui-core/issues"
   },
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
-    "reload": "3.4.3",
     "commander": "14.0.3",
     "concurrently": "9.2.3",
     "cors": "2.8.6",
@@ -50,6 +52,7 @@
     "pug": "3.0.4",
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
+    "reload": "3.4.3",
     "rimraf": "6.1.3",
     "showdown": "2.1.0",
     "through2": "4.0.2"
@@ -61,19 +64,19 @@
     "@types/cors": "2.8.19",
     "@types/escape-html": "1.0.4",
     "@types/express": "5.0.6",
-    "@types/jest": "30.0.0",
     "@types/node": "24.13.3",
     "@types/pug": "2.0.10",
     "@types/showdown": "2.0.6",
     "@types/through2": "2.0.41",
+    "@vitest/coverage-v8": "^4.1.10",
     "cypress": "15.18.1",
-    "jest": "30.4.2",
     "sass": "1.101.0",
     "start-server-and-test": "3.0.11",
     "tikuidoc-tikui": "9.0.1",
-    "ts-jest": "29.4.11",
     "ts-node": "10.9.2",
-    "typescript": "5.9.3"
+    "tsdown": "^0.22.5",
+    "typescript": "5.9.3",
+    "vitest": "^4.1.10"
   },
   "bin": {
     "tikui-core": "./dist/tikui-core.js"

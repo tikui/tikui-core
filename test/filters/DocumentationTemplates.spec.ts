@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { code, component, componentRender, template, templateRender } from '../../src/filters/documentation-templates';
 
 describe('Documentation Templates', () => {

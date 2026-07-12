@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { config, project } from './tikui-loader';
 
 const exposedResources = config.expose || {};

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { templateDoc } from '../../src/filters/template-doc';
 
 describe('TemplateDoc', () => {

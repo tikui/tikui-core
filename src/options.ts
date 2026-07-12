@@ -1,12 +1,11 @@
-import path from 'path';
+import path from 'node:path';
 
 import { componentDoc } from './filters/component-doc';
 import { templateDoc } from './filters/template-doc';
 import { reload } from './filters/reload';
 import { pluginPath } from './documentation-loader';
 import { projectSrc } from './tikui-loader';
-
-const MultipleBasedirsPlugin = require("pug-multiple-basedirs-plugin");
+import MultipleBasedirsPlugin from 'pug-multiple-basedirs-plugin';
 
 const options = {
     basedir: projectSrc,
@@ -28,4 +27,4 @@ const options = {
     }
 };
 
-export = options;
+export default options;

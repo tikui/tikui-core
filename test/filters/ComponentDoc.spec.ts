@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { componentDoc } from '../../src/filters/component-doc';
 
 describe('ComponentDoc', () => {

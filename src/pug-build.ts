@@ -1,14 +1,14 @@
 import {config, projectDist, projectSrc} from './tikui-loader';
 import through2 from 'through2';
-import copy from 'recursive-copy';
-import options = require('./options');
+import options from './options';
 import { renderPugFile } from './pug-util';
+import { copy, type CopyOptions } from './copy';
 
 const toHtml = renderPugFile(options);
 
 const transform = (source: string) => through2((_, __, done) => done(null, toHtml(source)));
 
-const pugCopy: any = {
+const pugCopy: CopyOptions = {
   overwrite: true,
   expand: true,
   dot: true,
@@ -21,10 +21,10 @@ const pugCopy: any = {
 };
 
 
-const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
+const managePugCopy = (source: string, dest: string, copyOptions: CopyOptions) => copy(source, dest, copyOptions)
   .on(
     copy.events.COPY_FILE_COMPLETE,
-    (copyOperation: any) => {
+    (copyOperation) => {
       if (config.verbose) {
         console.info(`${copyOperation.src} => ${copyOperation.dest} using Pug`);
       }
@@ -32,9 +32,9 @@ const managePugCopy = (...copyargs: [any, any, any]) => copy(...copyargs)
   )
   .on(
     copy.events.ERROR,
-    (copyOperation: any) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
+    (_, copyOperation) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
   )
-  .catch((err: any) => console.error('Error during copy', err))
+  .catch((err: unknown) => console.error('Error during copy', err))
 ;
 
 managePugCopy(projectSrc, projectDist, pugCopy);

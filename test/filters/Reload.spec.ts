@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { reload } from '../../src/filters/reload';
 
 describe('Reload', () => {
