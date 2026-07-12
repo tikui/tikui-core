@@ -1,16 +1,15 @@
 import express, { NextFunction, Request, Response } from 'express';
 import watch from 'node-watch';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import cors from 'cors';
 import { onLibResources } from './lib-resources';
-import * as options from './options.dev';
+import options from './options.dev';
 import { port, projectCache, projectSrc, reloadPort } from './tikui-loader';
 import { onDocResources, sassRender } from './doc-resources';
 import { onExposedResources } from './exposed-resources';
 import { renderPugFile } from './pug-util';
-
-const reload = require('reload');
+import reload from 'reload';
 
 const app = express();
 
@@ -100,17 +99,17 @@ app.listen(port, () => console.log(`Styles are available at http://localhost:${p
 // Watch on pug and css files
 reload(app, {
   port: reloadPort,
-}).then((reloadReturned: any) => {
+}).then((reloadReturned) => {
   watch([
     projectSrc,
     projectCache,
   ], {
     recursive: true
-  }, (evt: any, name: any) => {
-    if (typeof name === 'string' && !(name.match(/^(.+).scss$/))) {
+  }, (_, name) => {
+    if (typeof name === 'string' && !name.match(/^(.+).scss$/)) {
       reloadReturned.reload();
     }
   });
-}).catch((err: any) => {
+}).catch((err: unknown) => {
   console.error('Reload could not start, could not start Tikui app', err);
 });

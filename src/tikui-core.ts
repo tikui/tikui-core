@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import concurrently from 'concurrently';
-import path from 'path';
+import concurrently, { CloseEvent, ConcurrentlyCommandInput } from 'concurrently';
+import path from 'node:path';
 import { rimrafSync } from 'rimraf';
 import { Command } from 'commander';
 import { projectCache, projectDist, projectNodeModules, projectSrc } from './tikui-loader';
-import fs from 'fs';
+import fs from 'node:fs';
 
-const BUILD_DIR = path.resolve(__dirname, '..', 'dist');
+const BUILD_DIR = path.resolve(import.meta.dirname, '..', 'dist');
 
 const SASS_CACHE = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectCache}" -s expanded --watch`;
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
@@ -27,15 +27,19 @@ const filterInterruptionErrorFor = (subject: string) => async (errors: unknown) 
   process.exit(1);
 };
 
-const launchFor = (subject: string, ...commands: string[]) => async () => {
+const launchFor = (subject: string, ...commands: ConcurrentlyCommandInput[]) => async () => {
   console.log(`${subject} in progress, please use Ctrl-C to exit.`);
   const { result } = concurrently(commands)
   await result.then().catch(filterInterruptionErrorFor(subject));
 }
 
-const serve = launchFor('Serve', SASS_CACHE, EXPRESS_SERVE);
+const serve = launchFor(
+  'Serve',
+  { command: SASS_CACHE, name: 'scss' },
+  { command: EXPRESS_SERVE, name: 'express' },
+);
 
-const preview = launchFor('Preview', EXPRESS_PREVIEW);
+const preview = launchFor('Preview', { command: EXPRESS_PREVIEW, name: 'express' });
 
 const ordered = (...commands: string[]) => commands.join(' && ');
 
@@ -46,11 +50,13 @@ const build = () => {
     recursive: true,
   });
   const { result } = concurrently([
-    SASS_BUILD,
-    ordered(ASSETS_BUILD, PUG_BUILD),
+    { command: SASS_BUILD, name: 'scss' },
+    { command: ordered(ASSETS_BUILD, PUG_BUILD), name: 'pug' },
   ]);
-  result.then().catch((executions): void => {
-    const firstCode = executions.map((execution: any) => execution.exitCode).find((code: any) => code > 0);
+  result.then().catch((executions: CloseEvent[]): void => {
+    const firstCode = executions
+      .map((execution) => execution.exitCode)
+      .find((code): code is number => typeof code === 'number' && code > 0);
     console.error('Build failed, first error code found:', firstCode);
     return process.exit(firstCode);
   });

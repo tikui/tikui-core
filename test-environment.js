@@ -1,3 +1,3 @@
-const path = require('path');
+import path from 'node:path';
 
-process.env.TIKUI_PATH = path.resolve(__dirname, 'test/faketikui');
+process.env.TIKUI_PATH = path.resolve(import.meta.dirname, 'test/faketikui');

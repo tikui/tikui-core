@@ -1,15 +1,16 @@
-import { execSync } from 'child_process';
-import path, { resolve } from 'path';
-import { existsSync } from 'fs';
-import * as fs from 'fs';
+import { execSync } from 'node:child_process';
+import path, { resolve } from 'node:path';
+import { existsSync } from 'node:fs';
+import * as fs from 'node:fs';
 import { rimrafSync } from 'rimraf';
-const copy = require('recursive-copy');
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { copy } from '../src/copy';
 
 const ERROR_PATH_SEP = `${path.sep}${path.sep}?`
 
 const COMMAND_BUILD = 'node ../../dist/tikui-core.js build';
 
-const NODE_MODULES_PATH = resolve(__dirname, '..', 'node_modules');
+const NODE_MODULES_PATH = resolve(import.meta.dirname, '..', 'node_modules');
 
 const expectExistingPath = (dist: string) => (path: string) => expect(existsSync(resolve(dist, path))).toBeTruthy();
 const stringContaining = (dist: string) => (path: string) => fs.readFileSync(resolve(dist, path)).toString();
@@ -24,7 +25,7 @@ interface TikuiPathList {
 }
 
 const pathListOf = (directory: string): TikuiPathList  => {
-  const tikuiPath = resolve(__dirname, directory);
+  const tikuiPath = resolve(import.meta.dirname, directory);
   const {dist} = JSON.parse(fs.readFileSync(path.resolve(tikuiPath, 'tikuiconfig.json')).toString());
   const fallbackDist = dist === undefined ? 'dist' : dist;
   return ({
@@ -51,7 +52,8 @@ const buildTikui = (pathList: TikuiPathList) => {
       }
     });
   } catch (e) {
-    throw [e.stdout.toString(), e.stderr.toString()].join('\n');
+    const error = e as { stdout: Buffer; stderr: Buffer };
+    throw [error.stdout.toString(), error.stderr.toString()].join('\n');
   }
 }
 const faketikui = pathListOf('faketikui');
@@ -136,7 +138,7 @@ describe('Command line usage', () => {
 
   describe('Verbosity', () => {
     describe('Not verbose', () => {
-      const spiedConsole = jest.spyOn(console, 'log');
+      const spiedConsole = vi.spyOn(console, 'log');
 
       beforeEach(() => {
         spiedConsole.mockClear();
@@ -157,7 +159,7 @@ describe('Command line usage', () => {
     });
 
     describe('Is verbose', () => {
-      const spiedConsole = jest.spyOn(console, 'log');
+      const spiedConsole = vi.spyOn(console, 'log');
 
       beforeEach(() => {
         spiedConsole.mockClear();

@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": true,
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "dist",
     "sourceMap": true,
-    "target": "esnext",
-    "esModuleInterop": true
+    "target": "es2023",
+    "esModuleInterop": true,
+    "noEmit": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*.ts",
+    "vitest.config.ts",
+    "tsdown.config.ts"
   ],
   "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
+    "**/node_modules"
   ]
 }
