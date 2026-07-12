@@ -1,4 +1,5 @@
-import path from 'path';
+import path from 'node:path';
+import fs from 'node:fs';
 
 export const project = process.env.TIKUI_PATH || process.cwd();
 
@@ -15,7 +16,7 @@ interface TikuiConfig {
   verbose?: boolean;
 }
 
-export const config: TikuiConfig = require(path.resolve(project, 'tikuiconfig.json'));
+export const config: TikuiConfig = JSON.parse(fs.readFileSync(path.resolve(project, 'tikuiconfig.json'), 'utf-8'));
 
 const optionalOr = <T>(value: T | undefined, defaultValue: T): T => value === undefined ? defaultValue : value;
 

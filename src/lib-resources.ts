@@ -1,4 +1,5 @@
-import path from 'path';
+import path from 'node:path';
+import { createRequire } from 'node:module';
 
 interface LibResource {
   to: string,
@@ -28,6 +29,8 @@ export const libResources: LibResources = {
   ]
 };
 
+
+const require = createRequire(import.meta.url);
 
 const resolveNodeDir = (name: string): string => path.dirname(require.resolve(path.join(name, 'package.json')));
 

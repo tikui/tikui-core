@@ -1,7 +1,7 @@
-import path from 'path';
+import path from 'node:path';
 import { pluginPath } from './documentation-loader';
-import fs from 'fs';
-import sass from 'sass';
+import fs from 'node:fs';
+import * as sass from 'sass';
 import { project } from './tikui-loader';
 
 type ResourceType = 'copy' | 'scss';
@@ -30,7 +30,7 @@ const toDocResources = (json: any): DocResources => ({
   public: toDocResourceList(json.public) || [],
 });
 
-export const docResources: DocResources = fs.existsSync(tikuidocPath) ? toDocResources(require(tikuidocPath)) : toDocResources({});
+export const docResources: DocResources = fs.existsSync(tikuidocPath) ? toDocResources(JSON.parse(fs.readFileSync(tikuidocPath, 'utf-8'))) : toDocResources({});
 
 export const onDocResources = (launch: (absoluteFrom: string, relativeTo: string, type: ResourceType) => void) => docResources.public
   .forEach(filename => launch(

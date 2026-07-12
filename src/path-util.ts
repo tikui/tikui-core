@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 export const toPosixPath = (currentPath: string): string => currentPath.split(path.win32.sep).join(path.posix.sep);
 
