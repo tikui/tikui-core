@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { basePathOf, toPosixPath } from '../src/path-util';
 
 describe('Path util', () => {
