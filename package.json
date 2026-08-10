@@ -73,7 +73,7 @@
     "start-server-and-test": "3.0.12",
     "tikuidoc-tikui": "9.0.1",
     "ts-node": "10.9.2",
-    "tsdown": "0.22.5",
+    "tsdown": "0.22.14",
     "typescript": "7.0.2",
     "vitest": "4.1.10"
   },
