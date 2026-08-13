@@ -68,7 +68,7 @@
     "@types/pug": "2.0.10",
     "@types/showdown": "2.0.6",
     "@vitest/coverage-v8": "4.1.10",
-    "cypress": "15.20.0",
+    "cypress": "15.20.1",
     "sass": "1.102.0",
     "start-server-and-test": "3.0.12",
     "tikuidoc-tikui": "9.0.1",
