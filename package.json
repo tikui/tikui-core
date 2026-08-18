@@ -43,7 +43,7 @@
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
     "commander": "15.0.0",
-    "concurrently": "10.0.4",
+    "concurrently": "10.0.5",
     "cors": "2.8.6",
     "escape-html": "1.0.3",
     "express": "5.2.1",
