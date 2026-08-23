@@ -69,7 +69,7 @@
     "@types/showdown": "2.0.6",
     "@vitest/coverage-v8": "4.1.11",
     "cypress": "15.21.0",
-    "sass": "1.102.0",
+    "sass": "1.103.0",
     "start-server-and-test": "3.0.12",
     "tikuidoc-tikui": "9.0.1",
     "ts-node": "10.9.2",
