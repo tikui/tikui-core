@@ -64,7 +64,7 @@
     "@types/cors": "2.8.19",
     "@types/escape-html": "1.0.4",
     "@types/express": "5.0.6",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.4",
     "@types/pug": "2.0.10",
     "@types/showdown": "2.0.6",
     "@vitest/coverage-v8": "4.1.11",
