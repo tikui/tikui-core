@@ -9,7 +9,9 @@ import fs from 'node:fs';
 
 const BUILD_DIR = path.resolve(import.meta.dirname, '..', 'dist');
 
-const SASS_CACHE = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectCache}" -s expanded --watch`;
+// node_modules is given through SASS_PATH instead of -I: sass --watch watches -I load paths (but not SASS_PATH),
+// and crashes when a folder is created then removed or renamed in node_modules (e.g. by Vite's dependency optimizer).
+const SASS_CACHE = `npx sass "${projectSrc}":"${projectCache}" -s expanded --watch`;
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
 const SASS_BUILD = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectDist}" -s compressed --source-map --embed-sources`;
 const ASSETS_BUILD = `node "${path.resolve(BUILD_DIR, 'assets-build.js')}"`;
@@ -35,7 +37,7 @@ const launchFor = (subject: string, ...commands: ConcurrentlyCommandInput[]) => 
 
 const serve = launchFor(
   'Serve',
-  { command: SASS_CACHE, name: 'scss' },
+  { command: SASS_CACHE, name: 'scss', env: { SASS_PATH: projectNodeModules } },
   { command: EXPRESS_SERVE, name: 'express' },
 );
 
