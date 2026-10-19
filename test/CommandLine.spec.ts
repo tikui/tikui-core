@@ -1,4 +1,4 @@
-import { execSync } from 'node:child_process';
+import { ChildProcess, execSync, spawn } from 'node:child_process';
 import path, { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import * as fs from 'node:fs';
@@ -60,6 +60,49 @@ const faketikui = pathListOf('faketikui');
 const faketikuiDifferentPath = pathListOf('faketikui-different-path');
 const faketikuiVerbose = pathListOf('faketikui-verbose');
 const faketikuiSelf = pathListOf('faketikui-self');
+const faketikuiServe = pathListOf('faketikui-serve');
+
+const serveTikui = (pathList: TikuiPathList): ChildProcess => spawn('node', ['../../dist/tikui-core.js', 'serve'], {
+  cwd: pathList.path,
+  detached: true,
+  stdio: 'ignore',
+  env: {
+    ...process.env,
+    TIKUI_PATH: pathList.path,
+  },
+});
+
+const stopTikui = (tikui: ChildProcess): void => {
+  try {
+    process.kill(-tikui.pid!, 'SIGKILL');
+  } catch {
+    // already stopped
+  }
+};
+
+// Mimics tools (like Vite) creating then renaming temporary folders inside node_modules
+const churnFoldersIn = (directory: string): (() => void) => {
+  let running = true;
+  const churn = (index: number): void => {
+    if (!running) {
+      return;
+    }
+    for (let batch = 0; batch < 20; batch++) {
+      const temporary = resolve(directory, `deps_temp_${index}_${batch}`);
+      const renamed = resolve(directory, `deps_${index}_${batch}`);
+      fs.mkdirSync(resolve(temporary, 'sub'), { recursive: true });
+      fs.renameSync(temporary, renamed);
+      rimrafSync(renamed);
+    }
+    setImmediate(() => churn(index + 1));
+  };
+  fs.mkdirSync(directory, { recursive: true });
+  churn(0);
+
+  return () => {
+    running = false;
+  };
+};
 
 describe('Command line usage', () => {
   describe('Classic tikui', () => {
@@ -210,5 +253,36 @@ describe('Command line usage', () => {
       expect(indexContent).toMatch(/<div class="self-template--markdown">[^]*<h2.*>Template Markdown<\/h2>[^]*<\/div>/);
       expect(indexContent).toMatch(/<div class="self-template--render">[^]*<a class="self-button".*>Show<\/a>/);
     });
+  });
+
+  describe.skipIf(process.platform === 'win32')('Serve', () => {
+    let tikui: ChildProcess | undefined;
+
+    beforeEach(() => removeTikui(faketikuiServe));
+
+    afterEach(() => {
+      if (tikui) {
+        stopTikui(tikui);
+      }
+      removeTikui(faketikuiServe);
+    });
+
+    it('should compile styles importing from node_modules while folders are created and renamed in node_modules', async () => {
+      await createTikui(faketikuiServe.modules);
+      const externalStyle = resolve(faketikuiServe.modules, 'external-style');
+      fs.mkdirSync(externalStyle, { recursive: true });
+      fs.writeFileSync(resolve(externalStyle, '_external.scss'), '.external { color: #59c; }\n');
+      const compiledStyle = resolve(faketikuiServe.cache, 'tikui.css');
+      const stopChurn = churnFoldersIn(resolve(faketikuiServe.modules, '.churn'));
+
+      try {
+        tikui = serveTikui(faketikuiServe);
+
+        await vi.waitFor(() => expect(existsSync(compiledStyle)).toBeTruthy(), { timeout: 20000, interval: 200 });
+      } finally {
+        stopChurn();
+      }
+      expect(fs.readFileSync(compiledStyle).toString()).toContain('.external');
+    }, 30000);
   });
 });
