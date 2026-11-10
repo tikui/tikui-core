@@ -42,7 +42,7 @@
   "homepage": "https://github.com/tikui/tikui-core#readme",
   "dependencies": {
     "@johnsoncodehk/html2pug": "1.0.0",
-    "commander": "15.0.0",
+    "commander": "15.1.0",
     "concurrently": "10.0.6",
     "cors": "2.8.6",
     "escape-html": "1.0.3",
