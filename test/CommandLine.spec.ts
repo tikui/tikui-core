@@ -132,6 +132,9 @@ describe('Command line usage', () => {
       expect(indexContent).toContain('&lt;div class=&quot;component-class&quot;&gt;Component code&lt;/div&gt;');
       expect(indexContent).toMatch(new RegExp(`Please provide a render file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.render.pug`));
       expect(indexContent).toMatch(new RegExp(`Please provide a code file:(.+)${ERROR_PATH_SEP}src${ERROR_PATH_SEP}only-md-component${ERROR_PATH_SEP}only-md-component.code.pug`));
+      expect(indexContent).toMatch(/<div class="tikui-component--markdown markdown"><h2[^>]*>Render Markdown<\/h2>[^]*?<\/div><div class="tikui-component--render render"><iframe class="doc-iframe" src="render\/render.render.html" height="320"[^>]*><\/iframe><\/div>(<div class="tikui-component--code code"><\/div>)?<\/div>/);
+      expect(indexContent).not.toMatch(/Please provide a code file:(.+)render\.code\.pug/);
+      expectExistsFile('render/render.render.html');
       expect(indexContent).toContain('Template Markdown');
       expect(indexContent).toContain('href="template/template.render.html"');
       expect(indexContent).toContain('&lt;div class=&quot;template-class&quot;&gt;Template code&lt;/div&gt;');
@@ -260,6 +263,8 @@ describe('Command line usage', () => {
       expect(indexContent).toMatch(/<div class="self-component--code">[^]*<div class="self-code">[^]*<div class="self-code--pug" data-code-text="[^]*\.component-class Component code[^]*">[^]*\.component-class[^]*<\/div>/);
       expect(indexContent).toMatch(/<div class="self-component--markdown">[^]*<h2.*>Component Markdown<\/h2>[^]*<\/div>/);
       expect(indexContent).toMatch(/<div class="self-component--render">[^]*<iframe class="self-component-iframe.*"><\/iframe>/);
+
+      expect(indexContent).toMatch(/<div class="self-render-doc"><div class="self-render-doc--markdown"><h2[^>]*>Render Markdown<\/h2>[^]*?<\/div><div class="self-render-doc--render"><iframe class="self-component-iframe" src="render\/render.render.html" height="320"[^>]*><\/iframe><\/div><\/div>/);
 
       expect(indexContent).toMatch(/<div class="self-template--code">[^]*<div class="self-code">[^]*<div class="self-code--html" data-code-text="[^]*&quot;template-class&quot;&gt;Template code&lt;[^]*">[^]*template-class[^]*<\/div>/);
       expect(indexContent).toMatch(/<div class="self-template--code">[^]*<div class="self-code">[^]*<div class="self-code--pug" data-code-text="[^]*\.template-class Template code[^]*">[^]*\.template-class[^]*<\/div>/);
