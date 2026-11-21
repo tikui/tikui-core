@@ -10,7 +10,7 @@
     "component-test:start": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js serve",
     "component-test:build": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js build",
     "component-test:preview": "TIKUI_PATH='testing-tikui' node dist/tikui-core.js preview",
-    "component-test:cypress": "cypress run",
+    "component-test:cypress": "cypress run --browser chrome",
     "component-test:cypress:open": "cypress open",
     "component-test:ci": "start-server-and-test component-test:start http://localhost:3005 component-test:cypress",
     "component-test:preview:ci": "start-server-and-test component-test:preview http://localhost:3005 component-test:cypress",
