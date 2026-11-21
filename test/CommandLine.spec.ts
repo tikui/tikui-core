@@ -184,6 +184,20 @@ describe('Command line usage', () => {
     });
   });
 
+  describe('Broken Pug', () => {
+    const faketikuiBroken = pathListOf('faketikui-broken');
+
+    beforeEach(() => removeTikui(faketikuiBroken));
+
+    afterEach(() => removeTikui(faketikuiBroken));
+
+    it('should fail when a Pug file does not compile', async () => {
+      await createTikui(faketikuiBroken.modules);
+
+      expect(() => buildTikui(faketikuiBroken)).toThrow(/Failing to copy file from .+index\.pug/);
+    });
+  });
+
   describe('No theme', () => {
     beforeEach(() => removeTikui(faketikuiSelf));
 

@@ -37,9 +37,15 @@ const manageCopy = (source: string, dest: string, copyOptions: CopyOptions) => c
   )
   .on(
     copy.events.ERROR,
-    (_, copyOperation) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
+    (_, copyOperation) => {
+      console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`);
+      process.exitCode = 1;
+    },
   )
-  .catch((err: unknown) => console.error('Error during copy', err))
+  .catch((err: unknown) => {
+    console.error('Error during copy', err);
+    process.exitCode = 1;
+  })
 ;
 
 const manageSassCopy = (from: string, to: string) => {
