@@ -2,6 +2,7 @@ import path from 'node:path';
 
 import { componentDoc } from './filters/component-doc';
 import { templateDoc } from './filters/template-doc';
+import { renderDoc } from './filters/render-doc';
 import { reload } from './filters/reload';
 import { pluginPath } from './documentation-loader';
 import { projectSrc } from './tikui-loader';
@@ -23,6 +24,7 @@ const options = {
     filters: {
         componentDoc,
         templateDoc,
+        renderDoc,
         reload: reload(false)
     }
 };
