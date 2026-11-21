@@ -267,6 +267,45 @@ describe('Command line usage', () => {
     });
   });
 
+  describe('Clear', () => {
+    const COMMAND_CLEAR = 'node ../../dist/tikui-core.js clear';
+    const faketikuiServe = pathListOf('faketikui-serve');
+    const defaultCache = resolve(faketikui.path, '.tikui-cache');
+
+    const clearTikui = (pathList: TikuiPathList) => execSync(COMMAND_CLEAR, {
+      cwd: pathList.path,
+      env: {
+        ...process.env,
+        TIKUI_PATH: pathList.path,
+      },
+    });
+
+    afterEach(() => rimrafSync(defaultCache));
+
+    it('should remove the default cache directory', () => {
+      fs.mkdirSync(resolve(defaultCache, 'sub'), { recursive: true });
+      fs.writeFileSync(resolve(defaultCache, 'sub', 'removed.css'), 'p {}');
+
+      clearTikui(faketikui);
+
+      expect(existsSync(defaultCache)).toBeFalsy();
+      expect(existsSync(resolve(faketikui.path, 'src'))).toBeTruthy();
+    });
+
+    it('should remove the configured cache directory', () => {
+      fs.mkdirSync(faketikuiServe.cache, { recursive: true });
+      fs.writeFileSync(resolve(faketikuiServe.cache, 'removed.css'), 'p {}');
+
+      clearTikui(faketikuiServe);
+
+      expect(existsSync(faketikuiServe.cache)).toBeFalsy();
+    });
+
+    it('should succeed when there is no cache', () => {
+      expect(clearTikui(faketikui).toString()).toMatch(/Clearing .+\.tikui-cache directory/);
+    });
+  });
+
   describe('No theme', () => {
     beforeEach(() => removeTikui(faketikuiSelf));
 
