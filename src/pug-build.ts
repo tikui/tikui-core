@@ -1,20 +1,22 @@
+import { Transform } from 'node:stream';
 import {config, projectDist, projectSrc} from './tikui-loader';
-import through2, { type ClassicTransformFn } from 'through2';
 import options from './options';
 import { renderPugFile } from './pug-util';
 import { copy, type CopyOptions } from './copy';
 
 const toHtml = renderPugFile(options);
 
-const toHtmlTransform = (source: string): ClassicTransformFn => (_, __, done) => {
-  try {
-    done(null, toHtml(source));
-  } catch (err: unknown) {
-    done(err as Error);
-  }
-};
-
-const transform = (source: string) => through2(toHtmlTransform(source));
+const transform = (source: string) => new Transform({
+  transform: (_, __, done) => done(),
+  flush(done) {
+    try {
+      this.push(toHtml(source));
+      done();
+    } catch (err: unknown) {
+      done(err as Error);
+    }
+  },
+});
 
 const pugCopy: CopyOptions = {
   overwrite: true,

@@ -240,6 +240,33 @@ describe('Command line usage', () => {
     });
   });
 
+  describe('Large Pug', () => {
+    const faketikuiLarge = pathListOf('faketikui-large');
+    const largeSrc = resolve(faketikuiLarge.path, 'src');
+    const lines = Array.from({ length: 3000 }, (_, index) => `p Line ${index} of a Pug file larger than the read stream chunks`);
+
+    beforeEach(() => {
+      removeTikui(faketikuiLarge);
+      fs.mkdirSync(largeSrc, { recursive: true });
+      fs.writeFileSync(resolve(largeSrc, 'index.pug'), lines.join('\n'));
+    });
+
+    afterEach(() => {
+      removeTikui(faketikuiLarge);
+      rimrafSync(largeSrc);
+    });
+
+    it('should render a Pug file larger than 64 KB once', async () => {
+      await createTikui(faketikuiLarge.modules);
+      expect(fs.statSync(resolve(largeSrc, 'index.pug')).size).toBeGreaterThan(128 * 1024);
+
+      buildTikui(faketikuiLarge);
+
+      const html = stringContaining(faketikuiLarge.dist)('index.html');
+      expect(html).toBe(lines.map((_, index) => `<p>Line ${index} of a Pug file larger than the read stream chunks</p>`).join(''));
+    });
+  });
+
   describe('No theme', () => {
     beforeEach(() => removeTikui(faketikuiSelf));
 
