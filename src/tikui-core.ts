@@ -65,6 +65,11 @@ const build = () => {
   });
 };
 
+const clear = () => {
+  console.log(`Clearing ${projectCache} directory.`);
+  rimrafSync(projectCache);
+};
+
 const program = new Command();
 
 program
@@ -78,6 +83,10 @@ program
 program
   .command('build')
   .action(build);
+
+program
+  .command('clear')
+  .action(clear);
 
 program
   .name('tikui')

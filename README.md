@@ -29,6 +29,13 @@ npx tikui-core serve
 
 Tikui is started, you may see how sources are organized to understand how to organize your components by looking at the [Tikui](https://www.github.com/tikui/tikui) sources structure.
 
+The available commands are:
+
+- `npx tikui-core serve`: serve the documentation with live reload.
+- `npx tikui-core build`: build the documentation in the `dist` directory.
+- `npx tikui-core preview`: serve the built documentation.
+- `npx tikui-core clear`: remove the cache used by `serve` (`.tikui-cache` by default, or the `cache` directory of `tikuiconfig.json`), for instance when a removed Sass file is still served.
+
 ## Development
 
 ### Install
