@@ -54,8 +54,7 @@
     "pug-multiple-basedirs-plugin": "0.1.5",
     "recursive-copy": "2.0.14",
     "reload": "3.4.3",
-    "rimraf": "6.1.4",
-    "through2": "5.0.12"
+    "rimraf": "6.1.4"
   },
   "peerDependencies": {
     "sass": ">=1.45.0 <2.0.0"
