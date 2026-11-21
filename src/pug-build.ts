@@ -6,7 +6,13 @@ import { copy, type CopyOptions } from './copy';
 
 const toHtml = renderPugFile(options);
 
-const toHtmlTransform = (source: string): ClassicTransformFn => (_, __, done) => done(null, toHtml(source));
+const toHtmlTransform = (source: string): ClassicTransformFn => (_, __, done) => {
+  try {
+    done(null, toHtml(source));
+  } catch (err: unknown) {
+    done(err as Error);
+  }
+};
 
 const transform = (source: string) => through2(toHtmlTransform(source));
 
@@ -34,9 +40,15 @@ const managePugCopy = (source: string, dest: string, copyOptions: CopyOptions) =
   )
   .on(
     copy.events.ERROR,
-    (_, copyOperation) => console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`),
+    (_, copyOperation) => {
+      console.error(`Failing to copy file from ${copyOperation.src} to ${copyOperation.dest}`);
+      process.exitCode = 1;
+    },
   )
-  .catch((err: unknown) => console.error('Error during copy', err))
+  .catch((err: unknown) => {
+    console.error('Error during copy', err);
+    process.exitCode = 1;
+  })
 ;
 
 managePugCopy(projectSrc, projectDist, pugCopy);
