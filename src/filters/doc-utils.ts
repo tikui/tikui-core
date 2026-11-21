@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pug from 'pug';
-import showdown from 'showdown';
+import {marked} from 'marked';
 import escapeHtml from "escape-html";
 import { DocUtils, Render, Code } from './Documentation';
 import {projectSrc} from '../tikui-loader';
@@ -37,11 +37,7 @@ const getRender = (filename: string) => (template: Render): string => {
   return template(htmlFilenameLink);
 };
 
-const getMarkdown = (str: string) => (): string => {
-  const converter = new showdown.Converter();
-
-  return converter.makeHtml(str);
-};
+const getMarkdown = (str: string) => (): string => marked.parse(str, {async: false});
 
 export const docUtils = (str: string, filename: string): DocUtils => ({
   code: getCode(filename),
