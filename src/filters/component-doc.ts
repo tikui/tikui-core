@@ -9,7 +9,7 @@ const templateCode: Code = (escaped, escapedPug, htmlRaw, pugRaw): string => doc
   pugRaw,
 });
 
-const render = (height: string): Render => (src) => documentationTemplates.componentRender({
+export const componentRender = (height: string): Render => (src) => documentationTemplates.componentRender({
   src,
   height,
 });
@@ -19,7 +19,7 @@ export const componentDoc = (str: string, opts: ComponentOptions): string => {
   const height = opts.height || '150';
   return documentationTemplates.component({
     markdown: util.markdown(),
-    render: util.render(render(height)),
+    render: util.render(componentRender(height)),
     code: util.code(templateCode),
   });
 };
