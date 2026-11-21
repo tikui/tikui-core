@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import pug from 'pug';
-import showdown from 'showdown';
+import {Marked} from 'marked';
 import escapeHtml from "escape-html";
 import { DocUtils, Render, Code } from './Documentation';
 import {projectSrc} from '../tikui-loader';
@@ -37,10 +37,27 @@ const getRender = (filename: string) => (template: Render): string => {
   return template(htmlFilenameLink);
 };
 
-const getMarkdown = (str: string) => (): string => {
-  const converter = new showdown.Converter();
+const headingId = (text: string, counts: Map<string, number>): string => {
+  const id = text.replace(/<[^>]*>/g, '').trim().toLowerCase().replace(/[^\p{L}\p{M}\p{N}\p{Pc}\- ]/gu, '').replace(/ /g, '-');
+  const count = counts.get(id) ?? 0;
+  counts.set(id, count + 1);
 
-  return converter.makeHtml(str);
+  return count === 0 ? id : `${id}-${count}`;
+};
+
+const getMarkdown = (str: string) => (): string => {
+  const counts = new Map<string, number>();
+  const marked = new Marked({
+    renderer: {
+      heading({tokens, depth}) {
+        const id = headingId(this.parser.parseInline(tokens, this.parser.textRenderer), counts);
+
+        return `<h${depth} id="${escapeHtml(id)}">${this.parser.parseInline(tokens)}</h${depth}>\n`;
+      },
+    },
+  });
+
+  return marked.parse(str, {async: false});
 };
 
 export const docUtils = (str: string, filename: string): DocUtils => ({
