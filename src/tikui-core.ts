@@ -9,7 +9,10 @@ import fs from 'node:fs';
 
 const BUILD_DIR = path.resolve(import.meta.dirname, '..', 'dist');
 
-const SASS_CACHE = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectCache}" -s expanded --watch`;
+const SASS_CACHE = `npx sass "${projectSrc}":"${projectCache}" -s expanded --watch`;
+const SASS_CACHE_ENV = {
+  SASS_PATH: [projectNodeModules, process.env.SASS_PATH].filter(Boolean).join(path.delimiter),
+};
 const EXPRESS_SERVE = `node "${path.resolve(BUILD_DIR, 'express.js')}"`;
 const SASS_BUILD = `npx sass -I "${projectNodeModules}" "${projectSrc}":"${projectDist}" -s compressed --source-map --embed-sources`;
 const ASSETS_BUILD = `node "${path.resolve(BUILD_DIR, 'assets-build.js')}"`;
@@ -35,7 +38,7 @@ const launchFor = (subject: string, ...commands: ConcurrentlyCommandInput[]) => 
 
 const serve = launchFor(
   'Serve',
-  { command: SASS_CACHE, name: 'scss' },
+  { command: SASS_CACHE, name: 'scss', env: SASS_CACHE_ENV },
   { command: EXPRESS_SERVE, name: 'express' },
 );
 
