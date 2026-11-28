@@ -66,7 +66,7 @@
     "@types/node": "26.6.10",
     "@types/picomatch": "4.0.3",
     "@types/pug": "2.0.10",
-    "@vitest/coverage-v8": "5.1.1",
+    "@vitest/coverage-v8": "5.1.2",
     "cypress": "16.3.0",
     "sass": "1.108.2",
     "start-server-and-test": "3.0.13",
@@ -74,7 +74,7 @@
     "ts-node": "10.9.2",
     "tsdown": "0.23.7",
     "typescript": "7.0.2",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   },
   "bin": {
     "tikui-core": "./dist/tikui-core.js"
