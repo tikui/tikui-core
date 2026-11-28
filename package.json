@@ -63,7 +63,7 @@
     "@types/cors": "2.8.19",
     "@types/escape-html": "1.0.4",
     "@types/express": "5.0.6",
-    "@types/node": "26.6.6",
+    "@types/node": "26.6.7",
     "@types/picomatch": "4.0.3",
     "@types/pug": "2.0.10",
     "@vitest/coverage-v8": "5.1.1",
